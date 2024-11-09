@@ -1,5 +1,9 @@
+local wl = {
+	"jjjjkkmmdjgjfm",
+	"fps946",
+	"46386ewrf",
+}
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
-local wl = loadstring(game:HttpGet("https://raw.githubusercontent.com/qianchengawa/kawos213kdoa/refs/heads/main/whitelist.txt"))()
 if table.find(wl,game:GetService("Players").LocalPlayer.Name) then
 	local httpService = game:GetService("HttpService")
 	function Save(name,data)
