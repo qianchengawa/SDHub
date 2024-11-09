@@ -25,7 +25,21 @@ function Load(name)
 	if not success then return false end
 	return true,decoded
 end
-
+function camera(bloon)
+	if bloon == true then
+		local bloon,data = Load("Camera")
+		for i,v in pairs(data) do
+			if i == "CameraCFrame" then
+				workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function()
+					local cefra = v:split(", ")
+					workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
+				end)	
+			end
+		end
+	else
+		return
+	end
+end
 local Window = Fluent:CreateWindow({
 	Title = "SD脚本中心" .. " V1.0",
 	SubTitle = "by 牢大",
@@ -78,23 +92,7 @@ do
 	local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "固定摄像机到设定位置", Default = false })
 
 	Toggle:OnChanged(function()
-		if Options.MyToggle.Value == true then
-			local bloon,data = Load("Camera")
-			print("Toggle changed:", Options.MyToggle.Value)
-			local conn
-			for i,v in pairs(data) do
-				if i == "CameraCFrame" then
-					conn = workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function()
-						local cefra = v:split(", ")
-						workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
-					end)	
-				end
-			end
-		else
-			pcall(function()
-				conn:Disconnect()	
-			end)
-		end
+		
 	end)
 	Options.MyToggle:SetValue(false)
 end
@@ -106,4 +104,3 @@ Fluent:Notify({
 	Content = "脚本加载完毕！",
 	Duration = 8
 })
-
