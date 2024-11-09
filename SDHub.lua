@@ -1,4 +1,3 @@
-
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 
 local httpService = game:GetService("HttpService")
@@ -79,20 +78,25 @@ do
 	local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "固定摄像机到设定位置", Default = false })
 
 	Toggle:OnChanged(function()
-		print("Toggle changed:", Options.MyToggle.Value)
 		local bloon,data = Load("Camera")
-		pcall(function()
-			for i,v in pairs(data) do
-				if i == "CameraCFrame" then
-					workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function()
-						if Options.MyToggle.Value == true then
+		local t = task.spawn(function()
+			pcall(function()
+				for i,v in pairs(data) do
+					if i == "CameraCFrame" then
+						workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function()
 							local cefra = v:split(", ")
 							workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
-						end
-					end)
+						end)
+					end
 				end
-			end
+			end)
 		end)
+		print("Toggle changed:", Options.MyToggle.Value)
+		if Options.MyToggle.Value == true then
+			task.spawn(t)
+		else
+			task.cancel(t)
+		end
 	end)
 	Options.MyToggle:SetValue(false)
 end
