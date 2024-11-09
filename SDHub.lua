@@ -25,7 +25,8 @@ function Load(name)
 	if not success then return false end
 	return true,decoded
 end
-function camera(bloon)
+local function camera(bloon)
+	print(bloon)
 	if bloon == true then
 		local bloon,data = Load("Camera")
 		for i,v in pairs(data) do
