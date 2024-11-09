@@ -1,8 +1,4 @@
-local wl = {
-	"jjjjkkmmdjgjfm",
-	"fps946",
-	"46386ewrf",
-}
+local wl = loadstring(game:HttpGet("https://raw.githubusercontent.com/qianchengawa/kawos213kdoa/refs/heads/main/whitelist.txt"))()
 
 local white = false
 
