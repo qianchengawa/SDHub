@@ -1,10 +1,19 @@
 local wl = {
-	"a",
+	
 	"fps946",
 	"46386ewrf",
 }
+
+local white = false
+
+for i,v in pairs(wl) do
+	if game:GetService("Players").LocalPlayer.Name == v then
+		white = true
+		break
+	end
+end
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
-if table.find(wl,game:GetService("Players").LocalPlayer.Name) then
+if white then
 	local httpService = game:GetService("HttpService")
 	function Save(name,data)
 		if (not name) then
