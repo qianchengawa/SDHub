@@ -79,23 +79,20 @@ do
 
 	Toggle:OnChanged(function()
 		local bloon,data = Load("Camera")
-		local t = task.spawn(function()
-			pcall(function()
-				for i,v in pairs(data) do
-					if i == "CameraCFrame" then
+		print("Toggle changed:", Options.MyToggle.Value)
+		if Options.MyToggle.Value == true then
+			for i,v in pairs(data) do
+				if i == "CameraCFrame" then
+					if Options.MyToggle.Value then
 						workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function()
 							local cefra = v:split(", ")
 							workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
-						end)
+						end)	
+					else
+						break
 					end
 				end
-			end)
-		end)
-		print("Toggle changed:", Options.MyToggle.Value)
-		if Options.MyToggle.Value == true then
-			task.spawn(t)
-		else
-			task.cancel(t)
+			end
 		end
 	end)
 	Options.MyToggle:SetValue(false)
