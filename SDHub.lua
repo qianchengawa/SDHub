@@ -81,18 +81,20 @@ do
 		local bloon,data = Load("Camera")
 		print("Toggle changed:", Options.MyToggle.Value)
 		if Options.MyToggle.Value == true then
-			for i,v in pairs(data) do
-				if i == "CameraCFrame" then
-					if Options.MyToggle.Value then
-						workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function()
-							local cefra = v:split(", ")
-							workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
-						end)	
-					else
-						break
+			local ct = task.spawn(function()
+				for i,v in pairs(data) do
+					if i == "CameraCFrame" then
+						if Options.MyToggle.Value then
+							workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function()
+								local cefra = v:split(", ")
+								workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
+							end)	
+						else
+							return
+						end
 					end
 				end
-			end
+			end)
 		end
 	end)
 	Options.MyToggle:SetValue(false)
