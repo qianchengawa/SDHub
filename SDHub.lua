@@ -1,5 +1,5 @@
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
-
+local bloon = false
 local httpService = game:GetService("HttpService")
 function Save(name,data)
 	if (not name) then
@@ -25,24 +25,6 @@ function Load(name)
 	if not success then return false end
 	return true,decoded
 end
-pcall(function()
-	function camera(bloon)
-		print(bloon)
-		if bloon == true then
-			local bloon,data = Load("Camera")
-			for i,v in pairs(data) do
-				if i == "CameraCFrame" then
-					workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function()
-						local cefra = v:split(", ")
-						workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
-					end)	
-				end
-			end
-		else
-			return
-		end
-	end
-end)
 local Window = Fluent:CreateWindow({
 	Title = "SD脚本中心" .. " V1.0",
 	SubTitle = "by 牢大",
@@ -93,7 +75,16 @@ do
 	local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "固定摄像机到设定位置", Default = false })
 
 	Toggle:OnChanged(function()
-		camera(Options.MyToggle.Value)
+		local bloon,data = Load("Camera")
+		for i,v in pairs(data) do
+			if i == "CameraCFrame" then
+				while Options.MyToggle.Value do
+					wait()
+					local cefra = v:split(", ")
+					workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
+				end
+			end
+		end
 	end)
 	Options.MyToggle:SetValue(false)
 end
