@@ -88,8 +88,7 @@ do
 					local cefra = v:split(", ")
 					workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
 				end)	
-				if Options.MyToggle.Value == true then continue
-				else
+				if Options.MyToggle.Value == false then
 					conn:Disconnect()
 				end
 			end
