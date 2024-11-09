@@ -75,6 +75,10 @@ do
 	local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "固定摄像机到设定位置", Default = false })
 
 	Toggle:OnChanged(function()
+		while not Options.MyToggle.Value do
+			wait()
+			workspace.CurrentCamera.CameraType = Enum.CameraType.Follow
+		end
 		while Options.MyToggle.Value do
 			wait()
 			workspace.CurrentCamera.CameraType = Enum.CameraType.Scriptable
@@ -85,10 +89,6 @@ do
 					workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
 				end
 			end
-		end
-		while not Options.MyToggle.Value do
-			wait()
-			workspace.CurrentCamera.CameraType = Enum.CameraType.Follow
 		end
 	end)
 	Options.MyToggle:SetValue(false)
