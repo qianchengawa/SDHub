@@ -77,6 +77,7 @@ do
 	Toggle:OnChanged(function()
 		while Options.MyToggle.Value do
 			wait()
+			workspace.CurrentCamera.CameraType = Enum.CameraType.Scriptable
 			local bloon,data = Load("Camera")
 			for i,v in pairs(data) do
 				if i == "CameraCFrame" then
@@ -85,6 +86,7 @@ do
 				end
 			end
 		end
+		workspace.CurrentCamera.CameraType = Enum.CameraType.Follow
 	end)
 	Options.MyToggle:SetValue(false)
 end
