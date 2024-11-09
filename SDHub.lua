@@ -89,7 +89,9 @@ do
 					workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
 				end)	
 				if Options.MyToggle.Value == false then
-					conn:Disconnect()
+					pcall(function()
+						conn:Disconnect()	
+					end)
 				end
 			end
 		end
