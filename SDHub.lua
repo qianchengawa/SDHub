@@ -86,7 +86,7 @@ do
 				end
 			end
 		end
-		workspace.CurrentCamera.CameraType = Enum.CameraType.Follow
+		
 	end)
 	Options.MyToggle:SetValue(false)
 end
