@@ -86,7 +86,8 @@ do
 				end
 			end
 		end
-		if Options.MyToggle.Value == false then
+		while not Options.MyToggle.Value do
+			wait()
 			workspace.CurrentCamera.CameraType = Enum.CameraType.Follow
 		end
 	end)
