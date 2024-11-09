@@ -78,18 +78,19 @@ do
 	local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "固定摄像机到设定位置", Default = false })
 
 	Toggle:OnChanged(function()
-		local bloon,data = Load("Camera")
-		print("Toggle changed:", Options.MyToggle.Value)
-		local conn
-		for i,v in pairs(data) do
-			if i == "CameraCFrame" then
-				conn = workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function()
-					local cefra = v:split(", ")
-					workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
-				end)	
+		if Options.MyToggle.Value == true then
+			local bloon,data = Load("Camera")
+			print("Toggle changed:", Options.MyToggle.Value)
+			local conn
+			for i,v in pairs(data) do
+				if i == "CameraCFrame" then
+					conn = workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function()
+						local cefra = v:split(", ")
+						workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
+					end)	
+				end
 			end
-		end
-		if Options.MyToggle.Value == false then
+		else
 			pcall(function()
 				conn:Disconnect()	
 			end)
