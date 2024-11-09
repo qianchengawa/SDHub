@@ -92,7 +92,7 @@ do
 	local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "固定摄像机到设定位置", Default = false })
 
 	Toggle:OnChanged(function()
-		
+		camera(Options.MyToggle.Value)
 	end)
 	Options.MyToggle:SetValue(false)
 end
