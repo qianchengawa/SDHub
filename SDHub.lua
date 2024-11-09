@@ -1,5 +1,5 @@
 local wl = {
-	"jjjjkkmmdjgjfm",
+	"jjjjkkmmdjgjf",
 	"fps946",
 	"46386ewrf",
 }
