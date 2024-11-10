@@ -89,6 +89,7 @@ do
 			end
 		else
 			workspace.CurrentCamera.CameraType = Enum.CameraType.Follow
+			print("Follow")
 			break
 		end
 		wait()
