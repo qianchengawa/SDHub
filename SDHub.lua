@@ -78,13 +78,16 @@ do
 		if Options.MyToggle.Value == false then
 			workspace.CurrentCamera.CameraType = Enum.CameraType.Follow
 		else
-			workspace.CurrentCamera.CameraType = Enum.CameraType.Scriptable
-			local bloon,data = Load("Camera")
-			for i,v in pairs(data) do
-				if i == "CameraCFrame" then
-					local cefra = v:split(", ")
-					workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
+			while Options.MyToggle.Value do
+				workspace.CurrentCamera.CameraType = Enum.CameraType.Scriptable
+				local bloon,data = Load("Camera")
+				for i,v in pairs(data) do
+					if i == "CameraCFrame" then
+						local cefra = v:split(", ")
+						workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
+					end
 				end
+				wait()
 			end
 		end
 	end)
