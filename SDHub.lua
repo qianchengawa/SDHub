@@ -59,6 +59,7 @@ do
 						Title = "确定",
 						Callback = function()
 							Save("Humanoid",{HumanoidCFrame = tostring(game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame)})
+							Save("Camera",{HumanoidCFrame = tostring(workspace.CurrentCamera.CFrame)})
 						end
 					},
 					{
@@ -77,17 +78,24 @@ do
 	Toggle:OnChanged(function()
 		vb = Options.MyToggle.Value
 		while true do
-			if vb == true then
-				local bloon,data = Load("Humanoid")
-				for i,v in pairs(data) do
-					if i == "HumanoidCFrame" then
-						local cefra = v:split(", ")
-						game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(unpack(cefra))
+			pcall(function()
+				if vb == true then
+					local bloon,data = Load("Humanoid")
+					for i,v in pairs(data) do
+						if i == "HumanoidCFrame" then
+							local cefra = v:split(", ")
+							game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(unpack(cefra))
+						elseif i == "Camera" then
+							local cefra = v:split(", ")
+							workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
+						end
 					end
+				else
+					return
 				end
-			else
-				return
-			end
+			end)
+			
+			wait()
 		end
 	end)
 	Options.MyToggle:SetValue(false)
