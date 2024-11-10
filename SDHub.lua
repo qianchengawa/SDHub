@@ -84,6 +84,12 @@ do
 						if i == "HumanoidCFrame" then
 							local cefra = v:split(", ")
 							game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(unpack(cefra))
+							for i,p in ipairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+								if p:IsA("BasePart") then
+									p.CanCollide = false
+									p.Transparency = 1
+								end
+							end
 						elseif i == "CameraCFrame" then
 							local cefra = v:split(", ")
 							workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
@@ -91,6 +97,12 @@ do
 					end
 				end)
 				if vb == false then
+					for i,p in ipairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+						if p:IsA("BasePart") then
+							p.CanCollide = true
+							p.Transparency = 0
+						end
+					end
 					break
 				end
 				wait()
