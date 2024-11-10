@@ -75,11 +75,11 @@ do
 	local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "固定摄像机到设定位置", Default = false })
 	local vb = false
 	Toggle:OnChanged(function()
-		if Options.MyToggle.Value == false then
-			workspace.CurrentCamera.CameraType = Enum.CameraType.Follow
-		else
-			while Options.MyToggle.Value do
-				workspace.CurrentCamera.CameraType = Enum.CameraType.Scriptable
+		vb = Options.MyToggle.Value
+	end)
+	task.spawn(function()
+		workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function()
+			if vb == true then
 				local bloon,data = Load("Camera")
 				for i,v in pairs(data) do
 					if i == "CameraCFrame" then
@@ -87,11 +87,11 @@ do
 						workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
 					end
 				end
-				wait()
+			else
+				return
 			end
-		end
+		end)
 	end)
-
 	Options.MyToggle:SetValue(false)
 end
 
