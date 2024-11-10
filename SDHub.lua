@@ -74,8 +74,8 @@ do
 
 	local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "固定摄像机到设定位置", Default = false })
 	local vb = false
-	function chan()
-		if vb == false then
+	Toggle:OnChanged(function()
+		if Options.MyToggle.Value == false then
 			workspace.CurrentCamera.CameraType = Enum.CameraType.Follow
 		else
 			workspace.CurrentCamera.CameraType = Enum.CameraType.Scriptable
@@ -87,10 +87,6 @@ do
 				end
 			end
 		end
-	end
-	Toggle:OnChanged(function()
-		vb = Options.MyToggle.Value
-		chan()
 	end)
 
 	Options.MyToggle:SetValue(false)
