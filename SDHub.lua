@@ -48,17 +48,17 @@ do
 
 
 	Tabs.Main:AddButton({
-		Title = "设定摄像机位置",
+		Title = "设定身体位置",
 		Description = "设定一次后再次进入游戏无需再次设定",
 		Callback = function()
 			Window:Dialog({
-				Title = "设定摄像机位置",
-				Content = "确定设定摄像机为当前位置吗",
+				Title = "设定身体位置",
+				Content = "确定设定身体为当前位置吗",
 				Buttons = {
 					{
 						Title = "确定",
 						Callback = function()
-							Save("Camera",{CameraCFrame = tostring(workspace.CurrentCamera.CFrame)})
+							Save("Humanoid",{HumanoidCFrame = tostring(game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame)})
 						end
 					},
 					{
@@ -72,24 +72,23 @@ do
 		end
 	})
 
-	local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "固定摄像机到设定位置", Default = false })
+	local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "固定身体到设定位置", Default = false })
 	local vb = false
 	Toggle:OnChanged(function()
 		vb = Options.MyToggle.Value
-		workspace.CurrentCamera:GetPropertyChangedSignal("CameraType"):Connect(function()
-			workspace.CurrentCamera.CameraType = Enum.CameraType.Scriptable
+		while true do
 			if vb == true then
-				local bloon,data = Load("Camera")
+				local bloon,data = Load("Humanoid")
 				for i,v in pairs(data) do
-					if i == "CameraCFrame" then
+					if i == "HumanoidCFrame" then
 						local cefra = v:split(", ")
-						workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
+						game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(unpack(cefra))
 					end
 				end
 			else
 				return
 			end
-		end)
+		end
 	end)
 	Options.MyToggle:SetValue(false)
 
