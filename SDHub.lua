@@ -76,19 +76,16 @@ do
 	local vb = false
 	Toggle:OnChanged(function()
 		vb = Options.MyToggle.Value
-		workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function()
+		workspace.CurrentCamera:GetPropertyChangedSignal("CameraType"):Connect(function()
 			if vb == true then
 				local bloon,data = Load("Camera")
 				for i,v in pairs(data) do
 					if i == "CameraCFrame" then
 						local cefra = v:split(", ")
-						workspace.CurrentCamera.CameraType = Enum.CameraType.Scriptable
 						workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
 					end
 				end
 			else
-				workspace.CurrentCamera.CameraType = Enum.CameraType.Follow
-				print("Follow")
 				return
 			end
 		end)
