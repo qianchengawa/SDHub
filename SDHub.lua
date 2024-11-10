@@ -76,7 +76,7 @@ do
 	local vb = false
 	Toggle:OnChanged(function()
 		vb = Options.MyToggle.Value
-		workspace.CurrentCamera:GetPropertyChangedSignal("CameraType"):Connect(function()
+		workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function()
 			if vb == true then
 				local bloon,data = Load("Camera")
 				for i,v in pairs(data) do
