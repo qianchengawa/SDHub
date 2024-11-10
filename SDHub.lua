@@ -79,28 +79,26 @@ do
 		vb = Options.MyToggle.Value
 		while true do
 			pcall(function()
-				if vb == true then
-					local bloon,data = Load("Humanoid")
-					for i,v in pairs(data) do
-						if i == "HumanoidCFrame" then
-							local cefra = v:split(", ")
-							game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(unpack(cefra))
-						elseif i == "Camera" then
-							local cefra = v:split(", ")
-							workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
-						end
+				local bloon,data = Load("Humanoid")
+				for i,v in pairs(data) do
+					if i == "HumanoidCFrame" then
+						local cefra = v:split(", ")
+						game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(unpack(cefra))
+					elseif i == "Camera" then
+						local cefra = v:split(", ")
+						workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
 					end
-				else
-					return
 				end
 			end)
-			
+			if vb == false then
+				break
+			end
 			wait()
 		end
 	end)
 	Options.MyToggle:SetValue(false)
 
-	
+
 end
 
 Window:SelectTab(1)
