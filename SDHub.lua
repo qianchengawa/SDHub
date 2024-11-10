@@ -77,24 +77,26 @@ do
 	local vb = false
 	Toggle:OnChanged(function()
 		vb = Options.MyToggle.Value
-		while true do
-			pcall(function()
-				local bloon,data = Load("Humanoid")
-				for i,v in pairs(data) do
-					if i == "HumanoidCFrame" then
-						local cefra = v:split(", ")
-						game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(unpack(cefra))
-					elseif i == "Camera" then
-						local cefra = v:split(", ")
-						workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
+		task.spawn(function()
+			while true do
+				pcall(function()
+					local bloon,data = Load("Humanoid")
+					for i,v in pairs(data) do
+						if i == "HumanoidCFrame" then
+							local cefra = v:split(", ")
+							game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(unpack(cefra))
+						elseif i == "Camera" then
+							local cefra = v:split(", ")
+							workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
+						end
 					end
+				end)
+				if vb == false then
+					break
 				end
-			end)
-			if vb == false then
-				break
+				wait()
 			end
-			wait()
-		end
+		end)
 	end)
 	Options.MyToggle:SetValue(false)
 
