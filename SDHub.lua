@@ -5,7 +5,7 @@ function Save(name,data)
 	if (not name) then
 		return false
 	end
-	local fullPath = "SDHub" .. name .. ".json"
+	local fullPath = "SDHub.json"
 	local success, encoded = pcall(httpService.JSONEncode, httpService, data)
 	if not success then
 		return false, "文件导出错误"
@@ -18,7 +18,7 @@ function Load(name)
 	if (not name) then
 		return false
 	end
-	local file = "SDHub" .. name .. ".json"
+	local file = "SDHub.json"
 	if not isfile(file) then return false end
 
 	local success, decoded = pcall(httpService.JSONDecode, httpService, readfile(file))
@@ -58,8 +58,7 @@ do
 					{
 						Title = "确定",
 						Callback = function()
-							Save("Humanoid",{HumanoidCFrame = tostring(game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame)})
-							Save("Camera",{HumanoidCFrame = tostring(workspace.CurrentCamera.CFrame)})
+							Save("Humanoid",{HumanoidCFrame = tostring(game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame),CameraCFrame = tostring(workspace.CurrentCamera.CFrame)})
 						end
 					},
 					{
@@ -85,7 +84,7 @@ do
 						if i == "HumanoidCFrame" then
 							local cefra = v:split(", ")
 							game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(unpack(cefra))
-						elseif i == "Camera" then
+						elseif i == "CameraCFrame" then
 							local cefra = v:split(", ")
 							workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
 						end
