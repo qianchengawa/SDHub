@@ -84,9 +84,9 @@ do
 						if i == "HumanoidCFrame" then
 							local cefra = v:split(", ")
 							game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(unpack(cefra))
+							game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Anchored = true
 							for i,p in ipairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
 								if p:IsA("BasePart") then
-									p.Anchored = true
 									p.CanCollide = false
 									p.Transparency = 1
 								end
@@ -98,6 +98,9 @@ do
 					end
 				end)
 				if vb == false then
+					pcall(function()
+						game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Anchored = false
+					end)
 					for i,p in ipairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
 						if p:IsA("BasePart") then
 							p.CanCollide = true
