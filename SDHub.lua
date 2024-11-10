@@ -84,10 +84,12 @@ do
 				for i,v in pairs(data) do
 					if i == "CameraCFrame" then
 						local cefra = v:split(", ")
+						workspace.CurrentCamera.CameraType = Enum.CameraType.Scriptable
 						workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
 					end
 				end
 			else
+				workspace.CurrentCamera.CameraType = Enum.CameraType.Follow
 				return
 			end
 		end)
