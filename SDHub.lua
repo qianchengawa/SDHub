@@ -100,7 +100,6 @@ do
 				if vb == false then
 					for i,p in ipairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
 						if p:IsA("BasePart") then
-							p.Anchored = false
 							p.CanCollide = true
 							p.Transparency = 0
 						end
