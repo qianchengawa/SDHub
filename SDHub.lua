@@ -74,16 +74,10 @@ do
 
 	local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "固定摄像机到设定位置", Default = false })
 	local vb = false
-	Toggle:OnChanged(function()
-		vb = Options.MyToggle.Value
-	end)
-	task.spawn(function()
-		while not vb do
-			wait()
+	function chan()
+		if vb == false then
 			workspace.CurrentCamera.CameraType = Enum.CameraType.Follow
-		end
-		while vb do
-			wait()
+		else
 			workspace.CurrentCamera.CameraType = Enum.CameraType.Scriptable
 			local bloon,data = Load("Camera")
 			for i,v in pairs(data) do
@@ -93,7 +87,12 @@ do
 				end
 			end
 		end
+	end
+	Toggle:OnChanged(function()
+		vb = Options.MyToggle.Value
+		chan()
 	end)
+
 	Options.MyToggle:SetValue(false)
 end
 
