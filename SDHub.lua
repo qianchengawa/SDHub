@@ -76,25 +76,26 @@ do
 	local vb = false
 	Toggle:OnChanged(function()
 		vb = Options.MyToggle.Value
-	end)
-	while true do
-		if vb == true then
-			local bloon,data = Load("Camera")
-			for i,v in pairs(data) do
-				if i == "CameraCFrame" then
-					local cefra = v:split(", ")
-					workspace.CurrentCamera.CameraType = Enum.CameraType.Scriptable
-					workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
+		workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function()
+			if vb == true then
+				local bloon,data = Load("Camera")
+				for i,v in pairs(data) do
+					if i == "CameraCFrame" then
+						local cefra = v:split(", ")
+						workspace.CurrentCamera.CameraType = Enum.CameraType.Scriptable
+						workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
+					end
 				end
+			else
+				workspace.CurrentCamera.CameraType = Enum.CameraType.Follow
+				print("Follow")
+				return
 			end
-		else
-			workspace.CurrentCamera.CameraType = Enum.CameraType.Follow
-			print("Follow")
-			break
-		end
-		wait()
-	end
+		end)
+	end)
 	Options.MyToggle:SetValue(false)
+
+	
 end
 
 Window:SelectTab(1)
