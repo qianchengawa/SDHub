@@ -73,7 +73,7 @@ if game.PlaceId == 14279724900 then --游戏内
 			Toggle:OnChanged(function()
 				task.spawn(function()
 					while Options.Speed.Value do
-						if Options.Speed.Value == true and game:GetService("Players").LocalPlayer.PlayerGui.Towers.speedButton.inner.mult.Text ~= speed.."x" then
+						if Options.Speed.Value == true and game:GetService("Players").LocalPlayer.PlayerGui.Towers.speedButton.inner.mult.Text ~= tostring(speed.."x") then
 							game:GetService("ReplicatedStorage"):WaitForChild("Game"):WaitForChild("Speed"):WaitForChild("Change"):FireServer(tonumber(speed))
 						elseif Options.Speed.Value == false then
 							break
