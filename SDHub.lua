@@ -191,7 +191,7 @@ elseif game.PlaceId == 18711550363 then --交易大厅
 										ui.AlwaysOnTop = true
 										ui.Size = UDim2.new(0,100,0,50)
 										local text = Instance.new("TextLabel")
-										text.Text = "Crystal"
+										text.Text = "{Crystal}"
 										text.Size = UDim2.new(1,0,1,0)
 										text.BackgroundTransparency = 1
 										text.TextColor3 = v.Color
@@ -200,7 +200,6 @@ elseif game.PlaceId == 18711550363 then --交易大厅
 										text.Parent = ui
 										ui.Parent = v
 										ui.Adornee = v
-										v.Transparency = 0.5
 										v.CanCollide = false
 									end
 								end
