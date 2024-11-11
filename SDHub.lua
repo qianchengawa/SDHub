@@ -260,6 +260,6 @@ task.spawn(function()
 		if iswl == false then
 			game.Players.LocalPlayer:Kick("你已被从白名单移除")
 		end
-		wait(10)
+		wait(60)
 	end
 end)
