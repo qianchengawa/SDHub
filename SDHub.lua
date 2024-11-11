@@ -73,6 +73,9 @@ if game.PlaceId == 14279724900 then --游戏内
 			local Toggle = Tabs.Main:AddToggle("Speed", {Title = "锁定选择倍速", Default = false })
 			Toggle:OnChanged(function()
 				task.spawn(function()
+					if Options.Speed.Value == true then
+						game:GetService("ReplicatedStorage"):WaitForChild("Game"):WaitForChild("Speed"):WaitForChild("Change"):FireServer(tonumber(speed))
+					end 
 					workspace:GetPropertyChangedSignal("Text"):Connect(function()
 						if Options.Speed.Value == true and game:GetService("Players").LocalPlayer.PlayerGui.Towers.speedButton.inner.mult.Text ~= tostring(speed.."x") then
 							game:GetService("ReplicatedStorage"):WaitForChild("Game"):WaitForChild("Speed"):WaitForChild("Change"):FireServer(tonumber(speed))
