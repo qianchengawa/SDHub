@@ -77,7 +77,7 @@ if game.PlaceId == 14279724900 then --游戏内
 						if Options.Speed.Value == true then
 							game:GetService("ReplicatedStorage"):WaitForChild("Game"):WaitForChild("Speed"):WaitForChild("Change"):FireServer(tonumber(speed))
 						end 
-						workspace:GetPropertyChangedSignal("Text"):Connect(function()
+						game:GetService("Players").LocalPlayer.PlayerGui.Towers.speedButton.inner.mult:GetPropertyChangedSignal("Text"):Connect(function()
 							pcall(function()
 								if Options.Speed.Value == true and game:GetService("Players").LocalPlayer.PlayerGui.Towers.speedButton.inner.mult.Text ~= tostring(speed.."x") then
 									game:GetService("ReplicatedStorage"):WaitForChild("Game"):WaitForChild("Speed"):WaitForChild("Change"):FireServer(tonumber(speed))
