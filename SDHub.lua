@@ -70,12 +70,12 @@ if game.PlaceId == 14279724900 then --游戏内
 			end)
 
 			local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "锁定选择倍速", Default = false })
-			local vb = false
+			local spvb = false
 			Toggle:OnChanged(function()
-				vb = Options.MyToggle.Value
+				spvb = Options.MyToggle.Value
 				task.spawn(function()
 					game:GetService("RunService").RenderStepped:Connect(function()
-						if vb == true then
+						if spvb == true then
 							game:GetService("ReplicatedStorage"):WaitForChild("Game"):WaitForChild("Speed"):WaitForChild("Change"):FireServer(tonumber(speed))
 						else
 							return
