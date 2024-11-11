@@ -69,10 +69,10 @@ if game.PlaceId == 14279724900 then --游戏内
 				speed = Value
 			end)
 
-			local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "锁定选择倍速", Default = false })
+			local Toggle = Tabs.Main:AddToggle("Speed", {Title = "锁定选择倍速", Default = false })
 			local spvb = false
 			Toggle:OnChanged(function()
-				spvb = Options.MyToggle.Value
+				spvb = Options.Speed.Value
 				while spvb do
 					if spvb == true then
 						game:GetService("ReplicatedStorage"):WaitForChild("Game"):WaitForChild("Speed"):WaitForChild("Change"):FireServer(tonumber(speed))
@@ -81,7 +81,7 @@ if game.PlaceId == 14279724900 then --游戏内
 					end
 				end
 			end)
-			Options.MyToggle:SetValue(false)
+			Options.Speed:SetValue(false)
 
 			Tabs.Main:AddButton({
 				Title = "设定身体位置",
@@ -108,10 +108,10 @@ if game.PlaceId == 14279724900 then --游戏内
 				end
 			})
 
-			local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "固定身体到设定位置", Default = false })
+			local Toggle = Tabs.Main:AddToggle("Body", {Title = "固定身体到设定位置", Default = false })
 			local vb = false
 			Toggle:OnChanged(function()
-				vb = Options.MyToggle.Value
+				vb = Options.Body.Value
 				task.spawn(function()
 					while true do
 						pcall(function()
@@ -149,7 +149,7 @@ if game.PlaceId == 14279724900 then --游戏内
 					end
 				end)
 			end)
-			Options.MyToggle:SetValue(false)
+			Options.Body:SetValue(false)
 		end
 	end)
 elseif game.PlaceId == 14279693118 then --大厅
