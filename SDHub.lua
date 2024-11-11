@@ -226,5 +226,9 @@ elseif game.PlaceId == 1871150363 then --交易大厅
 		Content = "脚本加载完毕！",
 		Duration = 8
 	})
+else
+	local Tabs = {
+		Main = Window:AddTab({ Title = "暂不支持该场景/游戏", Icon = "" }),
+	}
 end
 
