@@ -75,8 +75,9 @@ if game.PlaceId == 14279724900 then --游戏内
 				vb = Options.MyToggle.Value
 				task.spawn(function()
 					game:GetService("RunService").RenderStepped:Connect(function()
-						game:GetService("ReplicatedStorage"):WaitForChild("Game"):WaitForChild("Speed"):WaitForChild("Change"):FireServer(tonumber(speed))
-						if vb ~= true then
+						if vb == true then
+							game:GetService("ReplicatedStorage"):WaitForChild("Game"):WaitForChild("Speed"):WaitForChild("Change"):FireServer(tonumber(speed))
+						else
 							return
 						end
 					end)	
