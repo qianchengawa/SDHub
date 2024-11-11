@@ -1,6 +1,7 @@
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 local bloon = false
 local httpService = game:GetService("HttpService")
+
 function Save(name,data)
 	if (not name) then
 		return false
@@ -72,14 +73,13 @@ if game.PlaceId == 14279724900 then --游戏内
 			local Toggle = Tabs.Main:AddToggle("Speed", {Title = "锁定选择倍速", Default = false })
 			Toggle:OnChanged(function()
 				task.spawn(function()
-					while Options.Speed.Value do
+					workspace:GetPropertyChangedSignal("Text"):Connect(function()
 						if Options.Speed.Value == true and game:GetService("Players").LocalPlayer.PlayerGui.Towers.speedButton.inner.mult.Text ~= tostring(speed.."x") then
 							game:GetService("ReplicatedStorage"):WaitForChild("Game"):WaitForChild("Speed"):WaitForChild("Change"):FireServer(tonumber(speed))
 						elseif Options.Speed.Value == false then
-							break
+							return
 						end
-						wait()
-					end
+					end)
 				end)
 			end)
 			Options.Speed:SetValue(false)
