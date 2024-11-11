@@ -158,7 +158,7 @@ elseif game.PlaceId == 14279693118 then --大厅
 			})
 		end
 	end)
-elseif game.PlaceId == 1871150363 then --交易大厅
+elseif game.PlaceId == 18711550363 then --交易大厅
 	pcall(function()
 		local Tabs = {
 			Main = Window:AddTab({ Title = "主要功能", Icon = "" }),
