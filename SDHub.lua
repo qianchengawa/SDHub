@@ -176,37 +176,39 @@ elseif game.PlaceId == 18711550363 then --交易大厅
 			Toggle:OnChanged(function()
 				vb = Options.MyToggle.Value
 				task.spawn(function()
-					game:GetService("RunService").RenderStepped:Connect(function()
-						if vb == true then
-							for i,v in pairs (game:GetService("Workspace"):GetChildren()) do
-								if v.Name == "Crystal" and v:GetAttribute("P") ~= true then
-									v:SetAttribute("P",true)
-									local hl = Instance.new("Highlight")
-									hl.FillColor = v.Color
-									hl.FillTransparency = 0
-									hl.OutlineTransparency = 0.5
-									hl.Parent = v
-									v.CanCollide = false
+					pcall(function()
+						game:GetService("RunService").RenderStepped:Connect(function()
+							if vb == true then
+								for i,v in pairs (game:GetService("Workspace"):GetChildren()) do
+									if v.Name == "Crystal" and v:GetAttribute("P") ~= true then
+										v:SetAttribute("P",true)
+										local hl = Instance.new("Highlight")
+										hl.FillColor = v.Color
+										hl.FillTransparency = 0
+										hl.OutlineTransparency = 0.5
+										hl.Parent = v
+										v.CanCollide = false
+									end
 								end
-							end
-						else
-							for i,v in pairs (game:GetService("Workspace"):GetChildren()) do
-								if v.Name == "Crystal" and v:GetAttribute("P") == true then
-									pcall(function()
-										v:FindFirstChild("Highlight"):Destroy()
-										v:SetAttribute("P",false)
-									end)
+							else
+								for i,v in pairs (game:GetService("Workspace"):GetChildren()) do
+									if v.Name == "Crystal" and v:GetAttribute("P") == true then
+										pcall(function()
+											v:FindFirstChild("Highlight"):Destroy()
+											v:SetAttribute("P",false)
+										end)
+									end
 								end
+								return
 							end
-							return
-						end
+						end)
 					end)
 				end)
 			end)
 			Options.MyToggle:SetValue(false)
 		end
 	end)
-else
+elseif game.PlaceId ~= 18711550363 and game.PlaceId ~= 14279724900 and game.PlaceId ~= 14279693118 then
 	local Tabs = {
 		Main = Window:AddTab({ Title = "暂不支持该场景/游戏", Icon = "" }),
 	}
