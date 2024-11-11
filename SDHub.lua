@@ -63,7 +63,7 @@ if game.PlaceId == 14279724900 then --游戏内
 
 			Dropdown:SetValue("1")
 
-			local speed = 1
+			local speed
 
 			Dropdown:OnChanged(function(Value)
 				speed = Value
@@ -75,9 +75,9 @@ if game.PlaceId == 14279724900 then --游戏内
 				spvb = Options.MyToggle.Value
 				task.spawn(function()
 					game:GetService("RunService").RenderStepped:Connect(function()
-						if spvb == true then
+						if spvb == true and speed then
 							game:GetService("ReplicatedStorage"):WaitForChild("Game"):WaitForChild("Speed"):WaitForChild("Change"):FireServer(tonumber(speed))
-						else
+						elseif spvb == false then
 							return
 						end
 					end)	
