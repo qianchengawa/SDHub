@@ -246,20 +246,3 @@ Fluent:Notify({
 	Content = "脚本加载完毕！",
 	Duration = 8
 })
-
-task.spawn(function()
-	while true do
-		local iswl = false
-		local whitelist = loadstring(game:HttpGet("https://raw.githubusercontent.com/qianchengawa/kawos213kdoa/refs/heads/main/whitelist.txt"))
-		for i,p in pairs(whitelist) do
-			if p == game.Players.LocalPlayer.Name then
-				iswl = true
-				break
-			end
-		end
-		if iswl == false then
-			game.Players.LocalPlayer:Kick("你已被从白名单移除")
-		end
-		wait(60)
-	end
-end)
