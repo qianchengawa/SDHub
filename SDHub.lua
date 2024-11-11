@@ -48,17 +48,25 @@ do
 
 	local Dropdown = Tabs.Main:AddDropdown("Dropdown", {
 	Title = "锁定倍速",
-	Values = {"1x","2x","3x","4x","5x"},
+	Values = {"1","2","3","4","5"},
 	Multi = false,
 	Default = 1,
 	})
 
-	Dropdown:SetValue("1x")
+	Dropdown:SetValue("1")
+
+	local speed = 1
 
 	Dropdown:OnChanged(function(Value)
-		print("Dropdown changed:", Value)
-		--game:GetService("ReplicatedStorage"):WaitForChild("Game"):WaitForChild("Speed"):WaitForChild("Change"):FireServer(Value)
+		speed = Value
+		game:GetService("RunService").RenderStepped:Connect(function()
+			game:GetService("ReplicatedStorage"):WaitForChild("Game"):WaitForChild("Speed"):WaitForChild("Change"):FireServer(tonumber(speed))
+			if speed ~= Value then
+				return
+			end
+		end)	
 	end)
+	
 	Tabs.Main:AddButton({
 		Title = "设定身体位置",
 		Description = "设定一次后再次进入游戏无需再次设定",
