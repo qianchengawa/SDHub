@@ -26,7 +26,7 @@ function Load(name)
 	return true,decoded
 end
 local Window = Fluent:CreateWindow({
-	Title = "SD脚本中心" .. " V1.0",
+	Title = "SD脚本中心" .. " V1.1",
 	SubTitle = "by 牢大",
 	TabWidth = 160,
 	Size = UDim2.fromOffset(580, 460),
