@@ -11,6 +11,12 @@ function Save(name,data)
 		return false, "文件导出错误"
 	end
 	writefile(fullPath, encoded)
+	Fluent:Notify({
+      		  Title = "提示",
+      		  Content = "保存成功！",
+      		  SubContent = "", -- Optional
+       		 Duration = 5 -- Set to nil to make the notification not disappear
+   	 })
 	return true
 end
 
