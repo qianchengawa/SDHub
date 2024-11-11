@@ -181,27 +181,28 @@ elseif game.PlaceId == 18711550363 then --交易大厅
 							if vb == true then
 								for i,v in pairs (game:GetService("Workspace"):GetChildren()) do
 									if v.Name == "Crystal" and v:GetAttribute("P") ~= true then
-										v:SetAttribute("P",true)
-										local hl = Instance.new("Highlight")
-										hl.FillColor = v.Color
-										hl.FillTransparency = 0
-										hl.OutlineTransparency = 0.5
-										hl.Parent = v
-										local ui = Instance.new("BillboardGui")
-										ui.AlwaysOnTop = true
-										ui.Size = UDim2.new(0,100,0,50)
-										ui.StudsOffset = Vector3.new(0,5,0)
-										local text = Instance.new("TextLabel")
-										text.Text = "Crystal"
-										text.Size = UDim2.new(1,0,1,0)
-										text.BackgroundTransparency = 1
-										text.TextColor3 = v.Color
-										text.Font = Enum.Font.SourceSansBold
-										text.TextScaled = true
-										text.Parent = ui
-										ui.Parent = v
-										ui.Adornee = v
-										v.CanCollide = false
+										pcall(function()
+											v:SetAttribute("P",true)
+											local hl = Instance.new("Highlight")
+											hl.FillColor = v.Color
+											hl.FillTransparency = 0
+											hl.OutlineTransparency = 0.5
+											hl.Parent = v
+											local ui = Instance.new("BillboardGui")
+											ui.AlwaysOnTop = true
+											ui.Size = UDim2.new(0,100,0,50)
+											ui.StudsOffset = Vector3.new(0,5,0)
+											local text = Instance.new("TextLabel")
+											text.Text = "Crystal"
+											text.Size = UDim2.new(1,0,1,0)
+											text.BackgroundTransparency = 1
+											text.TextColor3 = v.Color
+											text.Font = Enum.Font.SourceSansBold
+											text.TextScaled = true
+											text.Parent = ui
+											ui.Parent = v
+											ui.Adornee = v
+										end)
 									end
 								end
 							else
