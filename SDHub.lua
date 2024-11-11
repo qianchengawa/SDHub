@@ -46,7 +46,19 @@ do
 		Content = "529972437\n购买脚本找群内管理[Traxiad]"
 	})
 
+	local Dropdown = Tabs.Main:AddDropdown("Dropdown", {
+	Title = "锁定倍速",
+	Values = {"1x","2x","3x","4x","5x"},
+	Multi = false,
+	Default = 1,
+	})
 
+	Dropdown:SetValue("1x")
+
+	Dropdown:OnChanged(function(Value)
+		print("Dropdown changed:", Value)
+		--game:GetService("ReplicatedStorage"):WaitForChild("Game"):WaitForChild("Speed"):WaitForChild("Change"):FireServer(Value)
+	end)
 	Tabs.Main:AddButton({
 		Title = "设定身体位置",
 		Description = "设定一次后再次进入游戏无需再次设定",
