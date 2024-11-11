@@ -55,7 +55,7 @@ if game.PlaceId == 14279724900 then --游戏内
 			})
 
 			local Dropdown = Tabs.Main:AddDropdown("Dropdown", {
-				Title = "锁定倍速",
+				Title = "选择倍速",
 				Values = {"1","2","3","4","5"},
 				Multi = false,
 				Default = 1,
@@ -67,13 +67,22 @@ if game.PlaceId == 14279724900 then --游戏内
 
 			Dropdown:OnChanged(function(Value)
 				speed = Value
-				game:GetService("RunService").RenderStepped:Connect(function()
-					game:GetService("ReplicatedStorage"):WaitForChild("Game"):WaitForChild("Speed"):WaitForChild("Change"):FireServer(tonumber(speed))
-					if speed ~= Value then
-						return
-					end
-				end)	
 			end)
+
+			local Toggle = Tabs.Main:AddToggle("MyToggle", {Title = "锁定选择倍速", Default = false })
+			local vb = false
+			Toggle:OnChanged(function()
+				vb = Options.MyToggle.Value
+				task.spawn(function()
+					game:GetService("RunService").RenderStepped:Connect(function()
+						game:GetService("ReplicatedStorage"):WaitForChild("Game"):WaitForChild("Speed"):WaitForChild("Change"):FireServer(tonumber(speed))
+						if vb ~= true then
+							return
+						end
+					end)	
+				end)
+			end)
+			Options.MyToggle:SetValue(false)
 
 			Tabs.Main:AddButton({
 				Title = "设定身体位置",
@@ -236,4 +245,3 @@ Fluent:Notify({
 	Content = "脚本加载完毕！",
 	Duration = 8
 })
-
