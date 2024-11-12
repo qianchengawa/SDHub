@@ -132,23 +132,23 @@ if game.PlaceId == 14279724900 then --游戏内
 			Toggle:OnChanged(function()
 				task.spawn(function()
 					workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function()
-						pcall(function()
-							local data = Load()
-							for i,v in pairs(data) do
-								if i == "CameraCFrame" then
-									local cefra = v:split(", ")
-									game:GetService("Players").LocalPlayer.CameraMinZoomDistance = game:GetService("Players").LocalPlayer.CameraMaxZoomDistance
-									workspace.CurrentCamera.CameraSubject = part
-									workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
+						if Options.Body.Value == true then
+							pcall(function()
+								local data = Load()
+								for i,v in pairs(data) do
+									if i == "CameraCFrame" then
+										local cefra = v:split(", ")
+										game:GetService("Players").LocalPlayer.CameraMinZoomDistance = game:GetService("Players").LocalPlayer.CameraMaxZoomDistance
+										workspace.CurrentCamera.CameraSubject = part
+										workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
+									end
 								end
-							end
-						end)
-						if Options.Body.Value == false then
+							end)
+						else
 							workspace.CurrentCamera.CameraSubject = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid")
 							game:GetService("Players").LocalPlayer.CameraMinZoomDistance = 1
 							return
 						end
-						wait()
 					end)
 				end)
 			end)
