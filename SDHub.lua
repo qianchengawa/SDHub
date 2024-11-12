@@ -111,6 +111,8 @@ if game.PlaceId == 14279724900 then --游戏内
 								Title = "确定",
 								Callback = function()
 									game:GetService("Players").LocalPlayer.CameraMinZoomDistance = game:GetService("Players").LocalPlayer.CameraMaxZoomDistance
+									game:GetService("Players").LocalPlayer.CameraMinZoomDistance = 1
+									part.CFrame = game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame
 									wait(1)
 									Save({HumanoidCFrame = tostring(game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame),CameraCFrame = tostring(workspace.CurrentCamera.CFrame)})
 								end
@@ -143,6 +145,7 @@ if game.PlaceId == 14279724900 then --游戏内
 						end)
 						if Options.Body.Value == false then
 							workspace.CurrentCamera.CameraSubject = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid")
+							game:GetService("Players").LocalPlayer.CameraMinZoomDistance = 1
 							break
 						end
 						wait()
