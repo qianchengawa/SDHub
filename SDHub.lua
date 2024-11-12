@@ -2,10 +2,8 @@ local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/
 local bloon = false
 local httpService = game:GetService("HttpService")
 
-function Save(name,data)
-	if (not name) then
-		return false
-	end
+
+function Save(data)
 	local fullPath = "SDHub.json"
 	local success, encoded = pcall(httpService.JSONEncode, httpService, data)
 	if not success then
@@ -21,16 +19,13 @@ function Save(name,data)
 	return true
 end
 
-function Load(name)
-	if (not name) then
-		return false
-	end
+function Load()
 	local file = "SDHub.json"
 	if not isfile(file) then return false end
 
 	local success, decoded = pcall(httpService.JSONDecode, httpService, readfile(file))
 	if not success then return false end
-	return true,decoded
+	return decoded
 end
 local Window = Fluent:CreateWindow({
 	Title = "SD脚本中心" .. " V1.1",
@@ -43,6 +38,19 @@ local Window = Fluent:CreateWindow({
 })
 
 if game.PlaceId == 14279724900 then --游戏内
+	local part = Instance.new("Part")
+	pcall(function()
+		local data = Load()
+		for i,v in pairs(data) do
+			if i == "HumanoidCFrame" then
+				local cefra = v:split(", ")
+				part.CFrame = CFrame.new(unpack(cefra))
+				part.Anchored = true
+				part.Transparency = 1
+				part.CanCollide = false
+			end
+		end
+	end)
 	pcall(function()
 		local Tabs = {
 			Main = Window:AddTab({ Title = "主要功能", Icon = "" }),
@@ -104,7 +112,7 @@ if game.PlaceId == 14279724900 then --游戏内
 								Callback = function()
 									game:GetService("Players").LocalPlayer.CameraMinZoomDistance = game:GetService("Players").LocalPlayer.CameraMaxZoomDistance
 									wait(1)
-									Save("Humanoid",{HumanoidCFrame = tostring(game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame),CameraCFrame = tostring(workspace.CurrentCamera.CFrame)})
+									Save({HumanoidCFrame = tostring(game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame),CameraCFrame = tostring(workspace.CurrentCamera.CFrame)})
 								end
 							},
 							{
@@ -123,35 +131,18 @@ if game.PlaceId == 14279724900 then --游戏内
 				task.spawn(function()
 					while true do
 						pcall(function()
-							local bloon,data = Load("Humanoid")
+							local data = Load()
 							for i,v in pairs(data) do
-								if i == "HumanoidCFrame" then
+								if i == "CameraCFrame" then
 									local cefra = v:split(", ")
-									game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(unpack(cefra))
-									game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Anchored = true
-									for i,p in ipairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
-										if p:IsA("BasePart") then
-											p.CanCollide = false
-											p.Transparency = 1
-										end
-									end
-								elseif i == "CameraCFrame" then
-									local cefra = v:split(", ")
-									workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
 									game:GetService("Players").LocalPlayer.CameraMinZoomDistance = game:GetService("Players").LocalPlayer.CameraMaxZoomDistance
+									workspace.CurrentCamera.CameraSubject = part
+									workspace.CurrentCamera.CFrame = CFrame.new(unpack(cefra))
 								end
 							end
 						end)
 						if Options.Body.Value == false then
-							pcall(function()
-								game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Anchored = false
-							end)
-							for i,p in ipairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
-								if p:IsA("BasePart") then
-									p.CanCollide = true
-									p.Transparency = 0
-								end
-							end
+							workspace.CurrentCamera.CameraSubject = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid")
 							break
 						end
 						wait()
