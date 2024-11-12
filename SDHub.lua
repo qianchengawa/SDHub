@@ -131,7 +131,7 @@ if game.PlaceId == 14279724900 then --游戏内
 			local Toggle = Tabs.Main:AddToggle("Body", {Title = "固定摄像机到保存的位置", Default = false })
 			Toggle:OnChanged(function()
 				task.spawn(function()
-					while true do
+					workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function()
 						pcall(function()
 							local data = Load()
 							for i,v in pairs(data) do
@@ -146,10 +146,10 @@ if game.PlaceId == 14279724900 then --游戏内
 						if Options.Body.Value == false then
 							workspace.CurrentCamera.CameraSubject = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid")
 							game:GetService("Players").LocalPlayer.CameraMinZoomDistance = 1
-							break
+							return
 						end
 						wait()
-					end
+					end)
 				end)
 			end)
 			Options.Body:SetValue(false)
