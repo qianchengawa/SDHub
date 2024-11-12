@@ -100,12 +100,12 @@ if game.PlaceId == 14279724900 then --游戏内
 			Options.Speed:SetValue(false)
 
 			Tabs.Main:AddButton({
-				Title = "设定身体位置",
-				Description = "设定一次后再次进入游戏无需再次设定",
+				Title = "保存摄像机位置",
+				Description = "保存一次后再次进入游戏无需保存",
 				Callback = function()
 					Window:Dialog({
-						Title = "设定身体位置",
-						Content = "确定设定身体为当前位置吗",
+						Title = "保存摄像机位置",
+						Content = "确定保存当前摄像机位置吗",
 						Buttons = {
 							{
 								Title = "确定",
@@ -128,7 +128,7 @@ if game.PlaceId == 14279724900 then --游戏内
 				end
 			})
 
-			local Toggle = Tabs.Main:AddToggle("Body", {Title = "固定身体到设定位置", Default = false })
+			local Toggle = Tabs.Main:AddToggle("Body", {Title = "固定摄像机到保存的位置", Default = false })
 			Toggle:OnChanged(function()
 				task.spawn(function()
 					while true do
