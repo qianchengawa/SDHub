@@ -1,7 +1,6 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local httpService = game:GetService("HttpService")
 local units = loadstring(game:HttpGet('https://raw.githubusercontent.com/qianchengawa/SDHub/refs/heads/main/Units.txt'))()
-print(units)
 function GetTowersData()
 	local towers = {}
 	for i=1,#workspace.Scripted.TowerData:GetChildren() , 1 do-- in ipairs(workspace.Scripted.TowerData:GetChildren()) do
@@ -36,7 +35,7 @@ function Load()
 end
 
 local Window = Rayfield:CreateWindow({
-	Name = "SDHub",
+	Name = "SDHub V2.1",
 	Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
 	LoadingTitle = "SDHub",
 	LoadingSubtitle = "by 牢大",
