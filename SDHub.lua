@@ -28,7 +28,7 @@ function Load()
 	return decoded
 end
 local Window = Fluent:CreateWindow({
-	Title = "SD脚本中心" .. " V1.34",
+	Title = "SD脚本中心" .. " V1.31",
 	SubTitle = "by 牢大 游戏id "..game.PlaceId,
 	TabWidth = 160,
 	Size = UDim2.fromOffset(580, 460),
@@ -155,7 +155,7 @@ if game.PlaceId == 14279724900 then --游戏内
 			end)
 			Options.Body:SetValue(false)
 			
-			local Toggle = Tabs.Main:AddToggle("WaveSkip", {Title = "自动跳过）", Default = false , Description = "修复游戏内自动跳过失效"})
+			local Toggle = Tabs.Main:AddToggle("WaveSkip", {Title = "自动跳过", Default = false , Description = "修复游戏内自动跳过失效"})
 			Toggle:OnChanged(function()
 				task.spawn(function()
 					while Options.WaveSkip.Value do
@@ -166,18 +166,20 @@ if game.PlaceId == 14279724900 then --游戏内
 			end)
 			local towers = {}
 			local tower
-			local function GetTowersData()
-				for i,v in ipairs(workspace.Scripted.TowerData:GetChildren()) do
-					towers[v.Name] = tostring(v.Name..v:GetAttribute("ID"))
+			task.spawn(function()
+				local function GetTowersData()
+					for i,v in ipairs(workspace.Scripted.TowerData:GetChildren()) do
+						towers[v.Name] = tostring(v.Name..v:GetAttribute("ID"))
+					end
+					Options.SLTower.Values:SetValue(towers)
 				end
-				Options.SLTower.Values:SetValue(towers)
-			end
-			GetTowersData()
-			workspace.Scripted.TowerData.ChildRemoved:Connect(function()
 				GetTowersData()
-			end)
-			workspace.Scripted.TowerData.ChildAdded:Connect(function()
-				GetTowersData()
+				workspace.Scripted.TowerData.ChildRemoved:Connect(function()
+					GetTowersData()
+				end)
+				workspace.Scripted.TowerData.ChildAdded:Connect(function()
+					GetTowersData()
+				end)
 			end)
 			local Dropdown = Tabs.Main:AddDropdown("SLTower", {
 				Title = "选择塔",
