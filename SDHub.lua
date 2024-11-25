@@ -28,7 +28,7 @@ function Load()
 	return decoded
 end
 local Window = Fluent:CreateWindow({
-	Title = "SD脚本中心" .. " V1.31",
+	Title = "SD脚本中心" .. " V1.34",
 	SubTitle = "by 牢大 游戏id "..game.PlaceId,
 	TabWidth = 160,
 	Size = UDim2.fromOffset(580, 460),
