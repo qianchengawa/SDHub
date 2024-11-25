@@ -63,7 +63,7 @@ if game.PlaceId == 14279724900 then --游戏内
 				Content = "529972437\n购买脚本找群内管理[Traxiad]"
 			})
 
-			local Dropdown = Tabs.Main:AddDropdown("Dropdown", {
+			local Dropdown = Tabs.Main:AddDropdown("SLSpeed", {
 				Title = "选择倍速",
 				Values = {"1","2","3","4","5"},
 				Multi = false,
@@ -85,9 +85,9 @@ if game.PlaceId == 14279724900 then --游戏内
 						if Options.Speed.Value == true then
 							game:GetService("ReplicatedStorage"):WaitForChild("Game"):WaitForChild("Speed"):WaitForChild("Change"):FireServer(tonumber(speed))
 						end 
-						game:GetService("Players").LocalPlayer.PlayerGui.Towers.speedButton.inner.mult:GetPropertyChangedSignal("Text"):Connect(function()
+						game:GetService("ReplicatedStorage"):WaitForChild("Game"):WaitForChild("Speed").Changed:Connect(function()
 							pcall(function()
-								if Options.Speed.Value == true and game:GetService("Players").LocalPlayer.PlayerGui.Towers.speedButton.inner.mult.Text ~= tostring(speed.."x") then
+								if Options.Speed.Value == true and game:GetService("ReplicatedStorage"):WaitForChild("Game"):WaitForChild("Speed").Value ~= speed then
 									game:GetService("ReplicatedStorage"):WaitForChild("Game"):WaitForChild("Speed"):WaitForChild("Change"):FireServer(tonumber(speed))
 								elseif Options.Speed.Value == false then
 									return
@@ -97,6 +97,7 @@ if game.PlaceId == 14279724900 then --游戏内
 					end)
 				end)
 			end)
+			
 			Options.Speed:SetValue(false)
 
 			Tabs.Main:AddButton({
@@ -128,7 +129,7 @@ if game.PlaceId == 14279724900 then --游戏内
 				end
 			})
 
-			local Toggle = Tabs.Main:AddToggle("Body", {Title = "固定摄像机到保存的位置", Default = false })
+			local Toggle = Tabs.Main:AddToggle("Body", {Title = "固定摄像机到保存的位置", Default = false  })
 			Toggle:OnChanged(function()
 				task.spawn(function()
 					workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function()
@@ -153,6 +154,29 @@ if game.PlaceId == 14279724900 then --游戏内
 				end)
 			end)
 			Options.Body:SetValue(false)
+			
+			local Toggle = Tabs.Main:AddToggle("WaveSkip", {Title = "自动跳过）", Default = false , Description = "修复游戏内自动跳过失效"})
+			Toggle:OnChanged(function()
+				task.spawn(function()
+					while Options.WaveSkip.Value do
+						game:GetService("ReplicatedStorage"):WaitForChild("Event"):WaitForChild("waveSkip"):FireServer(true)
+						wait(.1)
+					end
+				end)
+			end)
+			local towers = {}
+			local tower
+			for i,v in ipairs(workspace.Scripted.TowerData:GetChildren()) do
+				towers[v.Name] = v:GetAttribute("ID")
+			end
+			local Dropdown = Tabs.Main:AddDropdown("SLTower", {
+				Title = "选择塔",
+				Values = towers,
+				Multi = false,
+			})
+			Dropdown:OnChanged(function(Value)
+				tower = Value
+			end)
 		end
 	end)
 elseif game.PlaceId == 14279693118 then --大厅
