@@ -166,9 +166,19 @@ if game.PlaceId == 14279724900 then --游戏内
 			end)
 			local towers = {}
 			local tower
-			for i,v in ipairs(workspace.Scripted.TowerData:GetChildren()) do
-				towers[v.Name] = v:GetAttribute("ID")
+			local function GetTowersData()
+				for i,v in ipairs(workspace.Scripted.TowerData:GetChildren()) do
+					towers[v.Name] = tostring(v.Name..v:GetAttribute("ID"))
+				end
+				Options.SLTower.Values:SetValue(towers)
 			end
+			GetTowersData()
+			workspace.Scripted.TowerData.ChildRemoved:Connect(function()
+				GetTowersData()
+			end)
+			workspace.Scripted.TowerData.ChildAdded:Connect(function()
+				GetTowersData()
+			end)
 			local Dropdown = Tabs.Main:AddDropdown("SLTower", {
 				Title = "选择塔",
 				Values = towers,
