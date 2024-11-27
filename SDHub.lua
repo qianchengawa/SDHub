@@ -51,11 +51,11 @@ if game.PlaceId == 14279724900 then --游戏内
 	local Tab = Window:CreateTab("主要功能", 4483362458)
 	local part = Instance.new("Part")
 	local speed = 1
-	
-	
+
+
 	local Section = Tab:CreateSection("倍速")
-	
-	
+
+
 	local Dropdown = Tab:CreateDropdown({
 		Name = "选择倍速",
 		Options = {"1","2", "3", "4", "5"},
@@ -73,26 +73,16 @@ if game.PlaceId == 14279724900 then --游戏内
 		Callback = function(Value)
 			V = Value
 			pcall(function()
-				if V == true then
-					game:GetService("ReplicatedStorage"):WaitForChild("Game"):WaitForChild("Speed"):WaitForChild("Change"):FireServer(tonumber(speed))
-				end 
-				game:GetService("ReplicatedStorage"):WaitForChild("Game"):WaitForChild("Speed").Changed:Connect(function()
-					pcall(function()
-						if V == true and game:GetService("ReplicatedStorage"):WaitForChild("Game"):WaitForChild("Speed").Value ~= speed then
-							game:GetService("ReplicatedStorage"):WaitForChild("Game"):WaitForChild("Speed"):WaitForChild("Change"):FireServer(tonumber(speed))
-						elseif V == false then
-							return
-						end
-					end)
-				end)
+				repeat wait() until game:GetService("ReplicatedStorage"):WaitForChild("Game"):WaitForChild("Speed").Value ~= speed
+				game:GetService("ReplicatedStorage"):WaitForChild("Game"):WaitForChild("Speed"):WaitForChild("Change"):FireServer(tonumber(speed))
 			end)
 		end,
 	})
-	
-	
+
+
 	local Section = Tab:CreateSection("视角")
-	
-	
+
+
 	local Button = Tab:CreateButton({
 		Name = "保存当前视角位置",
 		Callback = function()
@@ -141,11 +131,11 @@ if game.PlaceId == 14279724900 then --游戏内
 
 		end
 	})
-	
-	
+
+
 	local Section = Tab:CreateSection("辅助")
-	
-	
+
+
 	local V2 = false
 	local Toggle = Tab:CreateToggle({
 		Name = "自动跳过",
@@ -161,22 +151,22 @@ if game.PlaceId == 14279724900 then --游戏内
 			end)
 		end,
 	})
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
 	local Tab = Window:CreateTab("娱乐功能", "audio-lines")
-	
+
 	local Section = Tab:CreateSection("塔(仅自己可见)")
-	
+
 	local atowers = GetTowersData()
-	
+
 	local TowerData
 	local ClockNope = Instance.new("BoolValue")
 	local Dropdown = Tab:CreateDropdown({
@@ -190,14 +180,14 @@ if game.PlaceId == 14279724900 then --游戏内
 			ClockNope.Value = TowerData:GetAttribute("ClockNope")
 		end,
 	})
-	
+
 	workspace.Scripted.TowerData.ChildRemoved:Connect(function()
 		Dropdown:Refresh(GetTowersData())
 	end)
 	workspace.Scripted.TowerData.ChildAdded:Connect(function()
 		Dropdown:Refresh(GetTowersData())
 	end)
-	
+
 	local Dropdown = Tab:CreateDropdown({
 		Name = "伪装品质",
 		Options = {"钻石","诅咒","黄金","普通"},
@@ -216,9 +206,9 @@ if game.PlaceId == 14279724900 then --游戏内
 			end
 		end,
 	})
-	
+
 	local buff
-	
+
 	local Dropdown = Tab:CreateDropdown({
 		Name = "选择buff",
 		Options = {"伤害","攻速","范围","减费","收入","未知"},
@@ -257,7 +247,7 @@ if game.PlaceId == 14279724900 then --游戏内
 			end
 		end,
 	})
-	
+
 	local Input = Tab:CreateInput({
 		Name = "编辑buff数值",
 		CurrentValue = "",
@@ -279,11 +269,11 @@ if game.PlaceId == 14279724900 then --游戏内
 			TowerData:SetAttribute("ClockNope",Value)
 		end,
 	})
-	
+
 	ClockNope.Changed:Connect(function()
 		Toggle:Set(ClockNope.Value)
 	end)
-	
+
 	local Input = Tab:CreateInput({
 		Name = "编辑售卖价格",
 		CurrentValue = "",
@@ -294,7 +284,7 @@ if game.PlaceId == 14279724900 then --游戏内
 			TowerData:SetAttribute("SellPrice",tonumber(Text))
 		end,
 	})
-	
+
 	local Input = Tab:CreateInput({
 		Name = "编辑攻击模式文本",
 		CurrentValue = "",
@@ -345,7 +335,7 @@ elseif game.PlaceId == 14279693118 then --大厅
 		end,
 	})
 	local Section = Tab:CreateSection("全球经验（自己可见）")
-	
+
 	local Input = Tab:CreateInput({
 		Name = "更改全球经验",
 		CurrentValue = game:GetService("ReplicatedStorage"):GetAttribute("BattlepassGlobalXP"),
@@ -414,11 +404,11 @@ elseif game.PlaceId == 18711550363 then --交易大厅
 			end)
 		end,
 	})
-	
-	
+
+
 	local Section = Tab:CreateSection("实用")
-	
-	
+
+
 	local ui = Instance.new("BillboardGui")
 	ui.AlwaysOnTop = true
 	ui.Size = UDim2.new(4,0,2,0)
@@ -500,18 +490,18 @@ elseif game.PlaceId == 18711550363 then --交易大厅
 			end)
 		end,
 	})
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
 	local Tab = Window:CreateTab("娱乐功能", "audio-lines")
-	
-	
-	
-	
+
+
+
+
 	local Section = Tab:CreateSection("更改价格(仅自己可见)")
 	local Values = game:GetService("ReplicatedStorage"):GetAttributes()
 	local Attr = {}
@@ -531,7 +521,7 @@ elseif game.PlaceId == 18711550363 then --交易大厅
 			cvl.Value = game:GetService("ReplicatedStorage"):GetAttribute(SLAttr)
 		end,
 	})
-	
+
 	local Input = Tab:CreateInput({
 		Name = "更改价值",
 		CurrentValue = "",
@@ -544,7 +534,7 @@ elseif game.PlaceId == 18711550363 then --交易大厅
 			end
 		end,
 	})
-	
+
 	cvl.Changed:Connect(function()
 		Input:Set(cvl.Value)
 	end)
