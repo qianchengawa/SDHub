@@ -73,7 +73,7 @@ if game.PlaceId == 14279724900 then --游戏内
 		Callback = function(Value)
 			V = Value
 			pcall(function()
-				while true do
+				while V do
 					repeat wait() until game:GetService("ReplicatedStorage"):WaitForChild("Game"):WaitForChild("Speed").Value ~= speed
 					game:GetService("ReplicatedStorage"):WaitForChild("Game"):WaitForChild("Speed"):WaitForChild("Change"):FireServer(tonumber(speed))
 				end
