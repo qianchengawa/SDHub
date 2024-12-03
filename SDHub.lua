@@ -193,7 +193,11 @@ if game.PlaceId == 14279724900 then --游戏内
 		Dropdown:Refresh(GetTowersData())
 	end)
 	local function dec(bloon,israndow,vc,tm,tx,na,col,lc)
-		l = israndow
+		if na == "DarkMatter" then
+			tm:SetAttribute("ShardType","DarkMatter")
+		else
+			tm:SetAttribute("ShardType",nil)
+		end
 		if bloon == true then
 			if israndow == false then
 				for i,v in ipairs(tm:GetDescendants()) do
@@ -261,34 +265,54 @@ if game.PlaceId == 14279724900 then --游戏内
 									p.Parent = v
 								end
 							else
-								pcall(function()
-									v.Color = lc
-								end)
+								if na == "DarkMatter" then
+									task.spawn(function()
+										while true do
+											if tm:GetAttribute("ShardType") == "DarkMatter" then
+												game:GetService("TweenService"):Create(v,TweenInfo.new(2),{Color = Color3.new(0.666667, 0, 1)}):Play()
+												task.wait(2)
+												game:GetService("TweenService"):Create(v,TweenInfo.new(2),{Color = Color3.new(0.933333, 0.431373, 1)}):Play()
+												task.wait(2)
+											else
+												break
+											end
+										end
+									end)
+								else
+									pcall(function()
+										v.Color = lc
+									end)
+								end
 							end
 						end
 					end)
 				end
 			else
+				tm:SetAttribute("ShardType","Randow")
 				for i,v in ipairs(tm:GetDescendants()) do
 					if v:IsA("Decal") and (v.Name == "Diamond" or v.Name == "Gold" or v.Name == "Cursed" or v.Name == "DarkMatter") then
 						v:Destroy()
 					elseif v:IsA("BasePart") or v:IsA("PointLight") or v:IsA("SurfaceLight") then
 						task.spawn(function()
-							while l do
-								game:GetService("TweenService"):Create(v,TweenInfo.new(2),{Color = Color3.new(1, 0, 0)}):Play()
-								wait(2)
-								game:GetService("TweenService"):Create(v,TweenInfo.new(2),{Color = Color3.new(1, 0.5, 0)}):Play()
-								wait(2)
-								game:GetService("TweenService"):Create(v,TweenInfo.new(2),{Color = Color3.new(1, 1, 0)}):Play()
-								wait(2)
-								game:GetService("TweenService"):Create(v,TweenInfo.new(2),{Color = Color3.new(0, 1, 0)}):Play()
-								wait(2)
-								game:GetService("TweenService"):Create(v,TweenInfo.new(2),{Color = Color3.new(0, 0.5, 1)}):Play()
-								wait(2)
-								game:GetService("TweenService"):Create(v,TweenInfo.new(2),{Color = Color3.new(0, 0, 1)}):Play()
-								wait(2)
-								game:GetService("TweenService"):Create(v,TweenInfo.new(2),{Color = Color3.new(0.5, 0, 1)}):Play()
-								wait(2)
+							while true do
+								if tm:GetAttribute("ShardType") == "Randow" then
+									game:GetService("TweenService"):Create(v,TweenInfo.new(2),{Color = Color3.new(1, 0, 0)}):Play()
+									wait(2)
+									game:GetService("TweenService"):Create(v,TweenInfo.new(2),{Color = Color3.new(1, 0.5, 0)}):Play()
+									wait(2)
+									game:GetService("TweenService"):Create(v,TweenInfo.new(2),{Color = Color3.new(1, 1, 0)}):Play()
+									wait(2)
+									game:GetService("TweenService"):Create(v,TweenInfo.new(2),{Color = Color3.new(0, 1, 0)}):Play()
+									wait(2)
+									game:GetService("TweenService"):Create(v,TweenInfo.new(2),{Color = Color3.new(0, 0.5, 1)}):Play()
+									wait(2)
+									game:GetService("TweenService"):Create(v,TweenInfo.new(2),{Color = Color3.new(0, 0, 1)}):Play()
+									wait(2)
+									game:GetService("TweenService"):Create(v,TweenInfo.new(2),{Color = Color3.new(0.5, 0, 1)}):Play()
+									wait(2)
+								else
+									break
+								end
 							end
 						end)
 					end
