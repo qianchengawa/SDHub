@@ -35,7 +35,7 @@ function Load()
 end
 
 local Window = Rayfield:CreateWindow({
-	Name = "SDHub V2.22",
+	Name = "SDHub V2.24",
 	Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
 	LoadingTitle = "SDHub",
 	LoadingSubtitle = "by 牢大",
@@ -201,7 +201,7 @@ if game.PlaceId == 14279724900 then --游戏内
 			local pz = unpack(Options)
 			if pz == "钻石" then
 				TowerData:SetAttribute("ShardType","Diamond")
-				for i,v in ipairs(workspace:GetDescendants()) do
+				for i,v in ipairs(TowerModel:GetDescendants()) do
 					if v:IsA("Decal") and (v.Name == "Diamond" or v.Name == "Golden" or v.Name == "Cursed") then
 						v:Destroy()
 					elseif v:IsA("BasePart") and v.Name ~= "HumanoidRootPart" and v.Name ~= "Query" then
@@ -249,7 +249,7 @@ if game.PlaceId == 14279724900 then --游戏内
 				end
 			elseif pz == "诅咒" then
 				TowerData:SetAttribute("ShardType","Cursed")
-				for i,v in ipairs(workspace:GetDescendants()) do
+				for i,v in ipairs(TowerModel:GetDescendants()) do
 					if v:IsA("Decal") and (v.Name == "Diamond" or v.Name == "Golden" or v.Name == "Cursed") then
 						v:Destroy()
 					elseif v:IsA("BasePart") and v.Name ~= "HumanoidRootPart" and v.Name ~= "Query" then
@@ -297,7 +297,7 @@ if game.PlaceId == 14279724900 then --游戏内
 				end
 			elseif pz == "黄金" then
 				TowerData:SetAttribute("ShardType","Golden")
-				for i,v in ipairs(workspace:GetDescendants()) do
+				for i,v in ipairs(TowerModel:GetDescendants()) do
 					if v:IsA("Decal") and (v.Name == "Diamond" or v.Name == "Golden" or v.Name == "Cursed") then
 						v:Destroy()
 					elseif v:IsA("BasePart") and v.Name ~= "HumanoidRootPart" and v.Name ~= "Query" then
@@ -345,7 +345,7 @@ if game.PlaceId == 14279724900 then --游戏内
 				end
 			elseif pz == "普通" then
 				TowerData:SetAttribute("ShardType",nil)
-				for i,v in ipairs(workspace:GetDescendants()) do
+				for i,v in ipairs(TowerModel:GetDescendants()) do
 					if v:IsA("Decal") and (v.Name == "Diamond" or v.Name == "Golden" or v.Name == "Cursed") then
 						v:Destroy()
 					end
