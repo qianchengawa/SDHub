@@ -35,7 +35,7 @@ function Load()
 end
 
 local Window = Rayfield:CreateWindow({
-	Name = "SDHub V2.24",
+	Name = "SDHub V2.31",
 	Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
 	LoadingTitle = "SDHub",
 	LoadingSubtitle = "by 牢大",
@@ -191,7 +191,65 @@ if game.PlaceId == 14279724900 then --游戏内
 	workspace.Scripted.TowerData.ChildAdded:Connect(function()
 		Dropdown:Refresh(GetTowersData())
 	end)
-
+	local function dec(bloon,vc,tm,tx,na,col)
+		if bloon == true then
+			for i,v in ipairs(tm:GetDescendants()) do
+				if v:IsA("Decal") and (v.Name == "Diamond" or v.Name == "Golden" or v.Name == "Cursed") then
+					v:Destroy()
+				elseif v:IsA("BasePart") and v.Name ~= "HumanoidRootPart" and v.Name ~= "Query" then
+					v.Color = vc
+					local p = Instance.new("Decal")
+					p.Color3 = col
+					p.Texture = tx
+					p.Name = na
+					p.Face = Enum.NormalId.Back
+					p.ZIndex = 1
+					p.Parent = v
+					local p = Instance.new("Decal")
+					p.Color3 = col
+					p.Texture = tx
+					p.Name = na
+					p.Face = Enum.NormalId.Top
+					p.ZIndex = 1
+					p.Parent = v
+					local p = Instance.new("Decal")
+					p.Color3 = col
+					p.Texture = tx
+					p.Name = na
+					p.Face = Enum.NormalId.Left
+					p.ZIndex = 1
+					p.Parent = v
+					local p = Instance.new("Decal")
+					p.Color3 = col
+					p.Texture = tx
+					p.Name = na
+					p.Face = Enum.NormalId.Front
+					p.ZIndex = 1
+					p.Parent = v
+					local p = Instance.new("Decal")
+					p.Color3 = col
+					p.Texture = tx
+					p.Name = na
+					p.Face = Enum.NormalId.Right
+					p.ZIndex = 1
+					p.Parent = v
+					local p = Instance.new("Decal")
+					p.Color3 = col
+					p.Texture = tx
+					p.Name = na
+					p.Face = Enum.NormalId.Bottom
+					p.ZIndex = 1
+					p.Parent = v
+				end
+			end
+		else
+			for i,v in ipairs(tm:GetDescendants()) do
+				if v:IsA("Decal") and (v.Name == "Diamond" or v.Name == "Gold" or v.Name == "Cursed") then
+					v:Destroy()
+				end
+			end
+		end
+	end
 	local Dropdown = Tab:CreateDropdown({
 		Name = "伪装品质",
 		Options = {"钻石","诅咒","黄金","普通"},
@@ -201,155 +259,17 @@ if game.PlaceId == 14279724900 then --游戏内
 			local pz = unpack(Options)
 			if pz == "钻石" then
 				TowerData:SetAttribute("ShardType","Diamond")
-				for i,v in ipairs(TowerModel:GetDescendants()) do
-					if v:IsA("Decal") and (v.Name == "Diamond" or v.Name == "Golden" or v.Name == "Cursed") then
-						v:Destroy()
-					elseif v:IsA("BasePart") and v.Name ~= "HumanoidRootPart" and v.Name ~= "Query" then
-						v.Color = Color3.new(0, 123, 255)
-						local tx = "http://www.roblox.com/asset/?id=18442360949"
-						local na = "Diamond"
-						local col = Color3.new(1,1,1)
-						local p = Instance.new("Decal")
-						p.Color3 = col
-						p.Texture = tx
-						p.Name = na
-						p.Face = Enum.NormalId.Back
-						p.ZIndex = 1
-						local p = Instance.new("Decal")
-						p.Color3 = col
-						p.Texture = tx
-						p.Name = na
-						p.Face = Enum.NormalId.Top
-						p.ZIndex = 1
-						local p = Instance.new("Decal")
-						p.Color3 = col
-						p.Texture = tx
-						p.Name = na
-						p.Face = Enum.NormalId.Left
-						p.ZIndex = 1
-						local p = Instance.new("Decal")
-						p.Color3 = col
-						p.Texture = tx
-						p.Name = na
-						p.Face = Enum.NormalId.Front
-						p.ZIndex = 1
-						local p = Instance.new("Decal")
-						p.Color3 = col
-						p.Texture = tx
-						p.Name = na
-						p.Face = Enum.NormalId.Right
-						p.ZIndex = 1
-						local p = Instance.new("Decal")
-						p.Color3 = col
-						p.Texture = tx
-						p.Name = na
-						p.Face = Enum.NormalId.Bottom
-						p.ZIndex = 1
-					end
-				end
+				dec(true,Color3.new(0, 123, 255),TowerModel,"http://www.roblox.com/asset/?id=18442360949","Diamond",Color3.new(1,1,1))
 			elseif pz == "诅咒" then
 				TowerData:SetAttribute("ShardType","Cursed")
 				for i,v in ipairs(TowerModel:GetDescendants()) do
-					if v:IsA("Decal") and (v.Name == "Diamond" or v.Name == "Golden" or v.Name == "Cursed") then
-						v:Destroy()
-					elseif v:IsA("BasePart") and v.Name ~= "HumanoidRootPart" and v.Name ~= "Query" then
-						v.Color = Color3.new(0,0,0)
-						local tx = "http://www.roblox.com/asset/?id=1619172543"
-						local na = "Cursed"
-						local col = Color3.new(0,0,0)
-						local p = Instance.new("Decal")
-						p.Color3 = col
-						p.Texture = tx
-						p.Name = na
-						p.Face = Enum.NormalId.Back
-						p.ZIndex = 1
-						local p = Instance.new("Decal")
-						p.Color3 = col
-						p.Texture = tx
-						p.Name = na
-						p.Face = Enum.NormalId.Top
-						p.ZIndex = 1
-						local p = Instance.new("Decal")
-						p.Color3 = col
-						p.Texture = tx
-						p.Name = na
-						p.Face = Enum.NormalId.Left
-						p.ZIndex = 1
-						local p = Instance.new("Decal")
-						p.Color3 = col
-						p.Texture = tx
-						p.Name = na
-						p.Face = Enum.NormalId.Front
-						p.ZIndex = 1
-						local p = Instance.new("Decal")
-						p.Color3 = col
-						p.Texture = tx
-						p.Name = na
-						p.Face = Enum.NormalId.Right
-						p.ZIndex = 1
-						local p = Instance.new("Decal")
-						p.Color3 = col
-						p.Texture = tx
-						p.Name = na
-						p.Face = Enum.NormalId.Bottom
-						p.ZIndex = 1
-					end
-				end
+					dec(true,Color3.new(0,0,0),TowerModel,"http://www.roblox.com/asset/?id=1619172543","Cursed",Color3.new(0,0,0))
 			elseif pz == "黄金" then
 				TowerData:SetAttribute("ShardType","Golden")
-				for i,v in ipairs(TowerModel:GetDescendants()) do
-					if v:IsA("Decal") and (v.Name == "Diamond" or v.Name == "Golden" or v.Name == "Cursed") then
-						v:Destroy()
-					elseif v:IsA("BasePart") and v.Name ~= "HumanoidRootPart" and v.Name ~= "Query" then
-						v.Color = Color3.new(255, 170, 0)
-						local tx = "http://www.roblox.com/asset/?id=4685786041"
-						local na = "Gold"
-						local col = Color3.new(1,1,1)
-						local p = Instance.new("Decal")
-						p.Color3 = col
-						p.Texture = tx
-						p.Name = na
-						p.Face = Enum.NormalId.Back
-						p.ZIndex = 1
-						local p = Instance.new("Decal")
-						p.Color3 = col
-						p.Texture = tx
-						p.Name = na
-						p.Face = Enum.NormalId.Top
-						p.ZIndex = 1
-						local p = Instance.new("Decal")
-						p.Color3 = col
-						p.Texture = tx
-						p.Name = na
-						p.Face = Enum.NormalId.Left
-						p.ZIndex = 1
-						local p = Instance.new("Decal")
-						p.Color3 = col
-						p.Texture = tx
-						p.Name = na
-						p.Face = Enum.NormalId.Front
-						p.ZIndex = 1
-						local p = Instance.new("Decal")
-						p.Color3 = col
-						p.Texture = tx
-						p.Name = na
-						p.Face = Enum.NormalId.Right
-						p.ZIndex = 1
-						local p = Instance.new("Decal")
-						p.Color3 = col
-						p.Texture = tx
-						p.Name = na
-						p.Face = Enum.NormalId.Bottom
-						p.ZIndex = 1
-					end
-				end
+				dec(true,Color3.new(255,170,0),TowerModel,"http://www.roblox.com/asset/?id=4685786041","Gold",Color3.new(1,1,1))
 			elseif pz == "普通" then
 				TowerData:SetAttribute("ShardType",nil)
-				for i,v in ipairs(TowerModel:GetDescendants()) do
-					if v:IsA("Decal") and (v.Name == "Diamond" or v.Name == "Golden" or v.Name == "Cursed") then
-						v:Destroy()
-					end
-				end
+				dec(false)
 			end
 		end,
 	})
