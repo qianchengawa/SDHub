@@ -2,6 +2,7 @@ local l = false
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local httpService = game:GetService("HttpService")
 local units = loadstring(game:HttpGet('https://raw.githubusercontent.com/qianchengawa/SDHub/refs/heads/main/Units.txt'))()
+local TweenService = game:GetService("TweenService")
 function GetTowersData()
 	local towers = {}
 	for i=1,#workspace.Scripted.TowerData:GetChildren() , 1 do-- in ipairs(workspace.Scripted.TowerData:GetChildren()) do
@@ -36,7 +37,7 @@ function Load()
 end
 
 local Window = Rayfield:CreateWindow({
-	Name = "SDHub V2.21",
+	Name = "SDHub V2.43",
 	Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
 	LoadingTitle = "SDHub",
 	LoadingSubtitle = "by 牢大",
@@ -192,163 +193,160 @@ if game.PlaceId == 14279724900 then --游戏内
 	workspace.Scripted.TowerData.ChildAdded:Connect(function()
 		Dropdown:Refresh(GetTowersData())
 	end)
-	local function dec(bloon,israndow,vc,tm,tx,na,col,lc)
-		if na == "DarkMatter" then
-			tm:SetAttribute("ShardType","DarkMatter")
-		else
-			tm:SetAttribute("ShardType",nil)
+	local function AddDec(Color,Texture,Name,Face,Parent)
+		local p = Instance.new("Decal")
+		p.Color3 = Color
+		p.Texture = Texture
+		p.Name = Name
+		p.Face = Face
+		p.ZIndex = 1
+		p.Parent = Parent
+		return p
+	end
+	local function Randow(v,TowerModel,ShardType)
+		local function RandowP(v)
+			if v:IsA("BasePart") or v:IsA("Light") or v:IsA("Decal") then
+				TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(1, 0, 0)}):Play()
+				wait(2)
+				TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(1, 0.5, 0)}):Play()
+				wait(2)
+				TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(1, 1, 0)}):Play()
+				wait(2)
+				TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(0, 1, 0)}):Play()
+				wait(2)
+				TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(0, 1, 1)}):Play()
+				wait(2)
+				TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(0, 0, 1)}):Play()
+				wait(2)
+				TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(0.5, 0, 1)}):Play()
+				wait(2)
+			elseif v:IsA("ParticleEmitter") then
+				v.Color = ColorSequence.new(Color3.new(1,0,0))
+				wait(2)
+				v.Color = ColorSequence.new(Color3.new(1,0.5,0))
+				wait(2)
+				v.Color = ColorSequence.new(Color3.new(1,1,0))
+				wait(2)
+				v.Color = ColorSequence.new(Color3.new(0,1,0))
+				wait(2)
+				v.Color = ColorSequence.new(Color3.new(0,1,1))
+				wait(2)
+				v.Color = ColorSequence.new(Color3.new(0,0,1))
+				wait(2)
+				v.Color = ColorSequence.new(Color3.new(0.5,0,1))
+				wait(2)
+			end
 		end
-		if bloon == true then
-			if israndow == false then
-				for i,v in ipairs(tm:GetDescendants()) do
-					pcall(function()
-						if v:IsA("Decal") and (v.Name == "Diamond" or v.Name == "Gold" or v.Name == "Cursed" or v.Name == "DarkMatter") then
-							v:Destroy()
-						elseif v:IsA("ParticleEmitter") or v:IsA("PointLight") or v:IsA("SurfaceLight") then
-							pcall(function()
-								v.Color = vc
-							end)
-							pcall(function()
-								v.Color = ColorSequence.new(vc)
-							end)
-							pcall(function()
-								v.Color = lc
-							end)
-							pcall(function()
-								v.Color = ColorSequence.new(lc)
-							end)
-						elseif v:IsA("BasePart") and v.Name ~= "HumanoidRootPart" and v.Name ~= "Query" then
-							v.Color = vc
-							if v.Material ~= Enum.Material.Neon then
-								if v.Transparency ~= 1 then
-									local p = Instance.new("Decal")
-									p.Color3 = col
-									p.Texture = tx
-									p.Name = na
-									p.Face = Enum.NormalId.Back
-									p.ZIndex = 1
-									p.Parent = v
-									local p = Instance.new("Decal")
-									p.Color3 = col
-									p.Texture = tx
-									p.Name = na
-									p.Face = Enum.NormalId.Top
-									p.ZIndex = 1
-									p.Parent = v
-									local p = Instance.new("Decal")
-									p.Color3 = col
-									p.Texture = tx
-									p.Name = na
-									p.Face = Enum.NormalId.Left
-									p.ZIndex = 1
-									p.Parent = v
-									local p = Instance.new("Decal")
-									p.Color3 = col
-									p.Texture = tx
-									p.Name = na
-									p.Face = Enum.NormalId.Front
-									p.ZIndex = 1
-									p.Parent = v
-									local p = Instance.new("Decal")
-									p.Color3 = col
-									p.Texture = tx
-									p.Name = na
-									p.Face = Enum.NormalId.Right
-									p.ZIndex = 1
-									p.Parent = v
-									local p = Instance.new("Decal")
-									p.Color3 = col
-									p.Texture = tx
-									p.Name = na
-									p.Face = Enum.NormalId.Bottom
-									p.ZIndex = 1
-									p.Parent = v
-								end
-							else
-								if na == "DarkMatter" then
-									task.spawn(function()
-										while true do
-											if tm:GetAttribute("ShardType") == "DarkMatter" then
-												game:GetService("TweenService"):Create(v,TweenInfo.new(2),{Color = Color3.new(0.666667, 0, 1)}):Play()
-												task.wait(2)
-												game:GetService("TweenService"):Create(v,TweenInfo.new(2),{Color = Color3.new(0.933333, 0.431373, 1)}):Play()
-												task.wait(2)
-											else
-												break
-											end
-										end
-									end)
-								else
-									pcall(function()
-										v.Color = lc
-									end)
-								end
+		repeat
+			RandowP(v)
+		until TowerModel:GetAttribute("ShardType") ~= ShardType
+	end
+	local function TweenColor(v,TowerModel,ShardType,ToColor1,ToColor2)
+		repeat
+			if v:IsA("ParticleEmitter") then
+				v.Color = ColorSequence.new(ToColor1)
+				wait(2)
+				v.Color = ColorSequence.new(ToColor2)
+				wait(2)
+			else
+				TweenService:Create(v,TweenInfo.new(2),{Color = ToColor1}):Play()
+				wait(2)
+				TweenService:Create(v,TweenInfo.new(2),{Color = ToColor2}):Play()
+				wait(2)
+			end
+		until TowerModel:GetAttribute("ShardType") ~= ShardType
+	end
+	local function dec(TowerModel,Name,Texture,PartColor,TextureColor,LightColor,RandowType,TweenToPartColor,TweenToLightColor)
+		TowerModel:SetAttribute("ShardType", Name)
+		for i, v in ipairs(TowerModel:GetDescendants()) do
+			if v:IsA("Decal") and (v.Name == "Diamond" or v.Name == "Gold" or v.Name == "Cursed" or v.Name == "Lava" or v.Name == "DarkMatter") then
+				v:Destroy()
+			else
+				if Name then
+					local israndow = false
+					if RandowType then
+						for i,t in pairs(RandowType) do
+							if v:IsA(t) then
+								israndow = true
 							end
 						end
-					end)
-				end
-			else
-				tm:SetAttribute("ShardType","Randow")
-				for i,v in ipairs(tm:GetDescendants()) do
-					if v:IsA("Decal") and (v.Name == "Diamond" or v.Name == "Gold" or v.Name == "Cursed" or v.Name == "DarkMatter") then
-						v:Destroy()
-					elseif v:IsA("BasePart") or v:IsA("PointLight") or v:IsA("SurfaceLight") then
-						task.spawn(function()
-							while true do
-								if tm:GetAttribute("ShardType") == "Randow" then
-									game:GetService("TweenService"):Create(v,TweenInfo.new(2),{Color = Color3.new(1, 0, 0)}):Play()
-									wait(2)
-									game:GetService("TweenService"):Create(v,TweenInfo.new(2),{Color = Color3.new(1, 0.5, 0)}):Play()
-									wait(2)
-									game:GetService("TweenService"):Create(v,TweenInfo.new(2),{Color = Color3.new(1, 1, 0)}):Play()
-									wait(2)
-									game:GetService("TweenService"):Create(v,TweenInfo.new(2),{Color = Color3.new(0, 1, 0)}):Play()
-									wait(2)
-									game:GetService("TweenService"):Create(v,TweenInfo.new(2),{Color = Color3.new(0, 0.5, 1)}):Play()
-									wait(2)
-									game:GetService("TweenService"):Create(v,TweenInfo.new(2),{Color = Color3.new(0, 0, 1)}):Play()
-									wait(2)
-									game:GetService("TweenService"):Create(v,TweenInfo.new(2),{Color = Color3.new(0.5, 0, 1)}):Play()
-									wait(2)
+					end
+					if israndow == false then
+						if v:IsA("BasePart") then
+							v.Color = PartColor
+							if Texture and v.Transparency ~= 1 and v.Material ~= Enum.Material.Neon then
+								AddDec(TextureColor,Texture,Name,Enum.NormalId.Front,v)
+								AddDec(TextureColor,Texture,Name,Enum.NormalId.Back,v)
+								AddDec(TextureColor,Texture,Name,Enum.NormalId.Top,v)
+								AddDec(TextureColor,Texture,Name,Enum.NormalId.Bottom,v)
+								AddDec(TextureColor,Texture,Name,Enum.NormalId.Left,v)
+								AddDec(TextureColor,Texture,Name,Enum.NormalId.Right,v)
+							elseif not Texture and v.Transparency ~= 1 and v.Material ~= Enum.Material.Neon then
+								v.Color = PartColor
+								if TweenToPartColor then
+									TweenColor(v,TowerModel,Name,PartColor,TweenToPartColor)
+								end
+							elseif v.Material == Enum.Material.Neon then
+								if LightColor then
+									v.Color = LightColor
 								else
-									break
+									v.Color = PartColor
+								end
+								if TweenToLightColor then
+									TweenColor(v,TowerModel,Name,LightColor,TweenToLightColor)
 								end
 							end
-						end)
+						elseif v:IsA("ParticleEmitter") then
+							if LightColor then
+								v.Color = ColorSequence.new(LightColor)
+							else
+								v.Color = ColorSequence.new(PartColor)
+							end
+							if TweenToLightColor then
+								TweenColor(v,TowerModel,Name,ColorSequence.new(LightColor),ColorSequence.new(TweenToLightColor))
+							end
+						elseif v:IsA("Light") then
+							if LightColor then
+								v.Color = LightColor
+							else
+								v.Color = PartColor
+							end
+							if TweenToLightColor then
+								TweenColor(v,TowerModel,Name,LightColor,TweenToLightColor)
+							end
+						end
+					elseif israndow == true then
+						Randow(v,TowerModel,Name)
 					end
-				end
-			end
-		else
-			for i,v in ipairs(tm:GetDescendants()) do
-				if v:IsA("Decal") and (v.Name == "Diamond" or v.Name == "Gold" or v.Name == "Cursed" or v.Name == "DarkMatter") then
-					v:Destroy()
 				end
 			end
 		end
 	end
 	local Dropdown = Tab:CreateDropdown({
 		Name = "伪装品质",
-		Options = {"钻石","诅咒","黄金","普通","暗物质（仅模型）","彩色渐变（仅模型）"},
+		Options = {"钻石","诅咒","黄金","普通","暗物质（仅模型）","彩色渐变（仅模型）","熔岩（仅模型）"},
 		MultipleOptions = false,
 		Flag = "SLSkin", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 		Callback = function(Options)
 			local pz = unpack(Options)
 			if pz == "钻石" then
 				TowerData:SetAttribute("ShardType","Diamond")
-				dec(true,false,Color3.new(0, 0.482353, 1),TowerModel,"http://www.roblox.com/asset/?id=18442360949","Diamond",Color3.new(1,1,1))
+				dec(TowerModel,"Diamond","http://www.roblox.com/asset/?id=18442360949",Color3.new(0,0.48,1),Color3.new(1,1,1))
 			elseif pz == "诅咒" then
 				TowerData:SetAttribute("ShardType","Cursed")
-				dec(true,false,Color3.new(0,0,0),TowerModel,"http://www.roblox.com/asset/?id=1619172543","Cursed",Color3.new(0,0,0),Color3.new(1, 0, 0))
+				dec(TowerModel,"Cursed","http://www.roblox.com/asset/?id=1619172543",Color3.new(0,0,0),Color3.new(0,0,0),Color3.new(1,0,0))
 			elseif pz == "黄金" then
 				TowerData:SetAttribute("ShardType","Golden")
-				dec(true,false,Color3.new(1, 0.666667, 0),TowerModel,"http://www.roblox.com/asset/?id=4685786041","Gold",Color3.new(1,1,1))
+				dec(TowerModel,"Gold","http://www.roblox.com/asset/?id=4685786041",Color3.new(1,0.666,0),Color3.new(1,1,1))
 			elseif pz == "普通" then
 				TowerData:SetAttribute("ShardType",nil)
-				dec(false,false,nil,TowerModel)
+				dec(TowerModel)
 			elseif pz == "暗物质（仅模型）" then
-				dec(true,false,Color3.new(0,0,0),TowerModel,"http://www.roblox.com/asset/?id=13408058843","DarkMatter",Color3.new(1,1,1),Color3.new(1, 0, 1))
+				dec(TowerModel,"DarkMatter","http://www.roblox.com/asset/?id=13408058843",Color3.new(0,0,0),Color3.new(1,1,1),Color3.new(1, 0, 1),nil,nil,Color3.new(0.5,0,1))
 			elseif pz == "彩色渐变（仅模型）" then
-				dec(true,true,nil,TowerModel)
+				dec(TowerModel,"Randow",nil,nil,nil,nil,{"BasePart","Light","ParticleEmitter"})
+			elseif pz == "熔岩（仅模型）" then
+				dec(TowerModel,"Lava","http://www.roblox.com/asset/?id=8284531810",Color3.new(1,0.5,0),Color3.new(1,1,1),Color3.new(1, 1, 0),nil,nil,Color3.new(1, 0.5, 0))
 			end
 		end,
 	})
