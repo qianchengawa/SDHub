@@ -35,7 +35,7 @@ function Load()
 end
 
 local Window = Rayfield:CreateWindow({
-	Name = "SDHub V2.21",
+	Name = "SDHub V2.25",
 	Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
 	LoadingTitle = "SDHub",
 	LoadingSubtitle = "by 牢大",
@@ -262,8 +262,7 @@ if game.PlaceId == 14279724900 then --游戏内
 				dec(true,Color3.new(0, 123, 255),TowerModel,"http://www.roblox.com/asset/?id=18442360949","Diamond",Color3.new(1,1,1))
 			elseif pz == "诅咒" then
 				TowerData:SetAttribute("ShardType","Cursed")
-				for i,v in ipairs(TowerModel:GetDescendants()) do
-					dec(true,Color3.new(0,0,0),TowerModel,"http://www.roblox.com/asset/?id=1619172543","Cursed",Color3.new(0,0,0))
+				dec(true,Color3.new(0,0,0),TowerModel,"http://www.roblox.com/asset/?id=1619172543","Cursed",Color3.new(0,0,0))
 			elseif pz == "黄金" then
 				TowerData:SetAttribute("ShardType","Golden")
 				dec(true,Color3.new(255,170,0),TowerModel,"http://www.roblox.com/asset/?id=4685786041","Gold",Color3.new(1,1,1))
