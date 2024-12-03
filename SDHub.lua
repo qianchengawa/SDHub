@@ -37,7 +37,7 @@ function Load()
 end
 
 local Window = Rayfield:CreateWindow({
-	Name = "SDHub V2.43",
+	Name = "SDHub V2.21",
 	Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
 	LoadingTitle = "SDHub",
 	LoadingSubtitle = "by 牢大",
@@ -244,9 +244,9 @@ if game.PlaceId == 14279724900 then --游戏内
 	local function TweenColor(v,TowerModel,ShardType,ToColor1,ToColor2)
 		repeat
 			if v:IsA("ParticleEmitter") then
-				v.Color = ColorSequence.new(ToColor1)
+				v.Color = ToColor1
 				wait(2)
-				v.Color = ColorSequence.new(ToColor2)
+				v.Color = ToColor2
 				wait(2)
 			else
 				TweenService:Create(v,TweenInfo.new(2),{Color = ToColor1}):Play()
