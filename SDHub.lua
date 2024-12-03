@@ -1,3 +1,4 @@
+
 local l = false
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local httpService = game:GetService("HttpService")
@@ -203,58 +204,64 @@ if game.PlaceId == 14279724900 then --游戏内
 		p.Parent = Parent
 		return p
 	end
-	local function Randow(v,TowerModel,ShardType)
-		local function RandowP(v)
-			if v:IsA("BasePart") or v:IsA("Light") or v:IsA("Decal") then
-				TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(1, 0, 0)}):Play()
-				wait(2)
-				TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(1, 0.5, 0)}):Play()
-				wait(2)
-				TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(1, 1, 0)}):Play()
-				wait(2)
-				TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(0, 1, 0)}):Play()
-				wait(2)
-				TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(0, 1, 1)}):Play()
-				wait(2)
-				TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(0, 0, 1)}):Play()
-				wait(2)
-				TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(0.5, 0, 1)}):Play()
-				wait(2)
-			elseif v:IsA("ParticleEmitter") then
-				v.Color = ColorSequence.new(Color3.new(1,0,0))
-				wait(2)
-				v.Color = ColorSequence.new(Color3.new(1,0.5,0))
-				wait(2)
-				v.Color = ColorSequence.new(Color3.new(1,1,0))
-				wait(2)
-				v.Color = ColorSequence.new(Color3.new(0,1,0))
-				wait(2)
-				v.Color = ColorSequence.new(Color3.new(0,1,1))
-				wait(2)
-				v.Color = ColorSequence.new(Color3.new(0,0,1))
-				wait(2)
-				v.Color = ColorSequence.new(Color3.new(0.5,0,1))
-				wait(2)
-			end
+	local function RandowP(v)
+		if v:IsA("BasePart") or v:IsA("Light") or v:IsA("Decal") then
+			TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(1, 0, 0)}):Play()
+			wait(2)
+			TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(1, 0.5, 0)}):Play()
+			wait(2)
+			TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(1, 1, 0)}):Play()
+			wait(2)
+			TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(0, 1, 0)}):Play()
+			wait(2)
+			TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(0, 1, 1)}):Play()
+			wait(2)
+			TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(0, 0, 1)}):Play()
+			wait(2)
+			TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(0.5, 0, 1)}):Play()
+			wait(2)
+		elseif v:IsA("ParticleEmitter") then
+			v.Color = ColorSequence.new(Color3.new(1,0,0))
+			wait(2)
+			v.Color = ColorSequence.new(Color3.new(1,0.5,0))
+			wait(2)
+			v.Color = ColorSequence.new(Color3.new(1,1,0))
+			wait(2)
+			v.Color = ColorSequence.new(Color3.new(0,1,0))
+			wait(2)
+			v.Color = ColorSequence.new(Color3.new(0,1,1))
+			wait(2)
+			v.Color = ColorSequence.new(Color3.new(0,0,1))
+			wait(2)
+			v.Color = ColorSequence.new(Color3.new(0.5,0,1))
+			wait(2)
 		end
-		repeat
-			RandowP(v)
-		until TowerModel:GetAttribute("ShardType") ~= ShardType
+	end
+	local function Randow(v,TowerModel,ShardType)
+		task.spawn(function()
+			repeat
+				RandowP(v)
+			until TowerModel:GetAttribute("ShardType") ~= ShardType
+		end)
 	end
 	local function TweenColor(v,TowerModel,ShardType,ToColor1,ToColor2)
-		repeat
-			if v:IsA("ParticleEmitter") then
-				v.Color = ToColor1
-				wait(2)
-				v.Color = ToColor2
-				wait(2)
-			else
-				TweenService:Create(v,TweenInfo.new(2),{Color = ToColor1}):Play()
-				wait(2)
-				TweenService:Create(v,TweenInfo.new(2),{Color = ToColor2}):Play()
-				wait(2)
-			end
-		until TowerModel:GetAttribute("ShardType") ~= ShardType
+		task.spawn(function()
+			repeat
+				if v:IsA("ParticleEmitter") then
+					pcall(function()
+						v.Color = ToColor1
+						wait(2)
+						v.Color = ToColor2
+						wait(2)
+					end)
+				else
+					TweenService:Create(v,TweenInfo.new(2),{Color = ToColor1}):Play()
+					wait(2)
+					TweenService:Create(v,TweenInfo.new(2),{Color = ToColor2}):Play()
+					wait(2)
+				end
+			until TowerModel:GetAttribute("ShardType") ~= ShardType
+		end)
 	end
 	local function dec(TowerModel,Name,Texture,PartColor,TextureColor,LightColor,RandowType,TweenToPartColor,TweenToLightColor)
 		TowerModel:SetAttribute("ShardType", Name)
