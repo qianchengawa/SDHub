@@ -36,7 +36,7 @@ function Load()
 end
 
 local Window = Rayfield:CreateWindow({
-	Name = "SDHub V2.21",
+	Name = "SDHub V2.42",
 	Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
 	LoadingTitle = "SDHub",
 	LoadingSubtitle = "by 牢大",
@@ -214,7 +214,7 @@ if game.PlaceId == 14279724900 then --游戏内
 					elseif v:IsA("BasePart") and v.Name ~= "HumanoidRootPart" and v.Name ~= "Query" then
 						v.Color = vc
 						if v.Material ~= Enum.Material.Neon then
-							if v.Transparency == 1 then
+							if v.Transparency ~= 1 then
 								local p = Instance.new("Decal")
 								p.Color3 = col
 								p.Texture = tx
