@@ -36,7 +36,7 @@ function Load()
 end
 
 local Window = Rayfield:CreateWindow({
-	Name = "SDHub V2.4",
+	Name = "SDHub V2.41",
 	Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
 	LoadingTitle = "SDHub",
 	LoadingSubtitle = "by 牢大",
@@ -195,74 +195,76 @@ if game.PlaceId == 14279724900 then --游戏内
 	local function dec(bloon,vc,tm,tx,na,col,lc)
 		if bloon == true then
 			for i,v in ipairs(tm:GetDescendants()) do
-				if v:IsA("Decal") and (v.Name == "Diamond" or v.Name == "Golden" or v.Name == "Cursed") then
-					v:Destroy()
-				elseif v:IsA("ParticleEmitter") or v:IsA("PointLight") or v:IsA("SurfaceLight") then
-					pcall(function()
-						v.Color = vc
-					end)
-					pcall(function()
-						v.Color = ColorSequence.new(vc)
-					end)
-					pcall(function()
-						v.Color = lc
-					end)
-					pcall(function()
-						v.Color = ColorSequence.new(lc)
-					end)
-				elseif v:IsA("BasePart") and v.Name ~= "HumanoidRootPart" and v.Name ~= "Query" then
-					v.Color = vc
-					if v.Material ~= Enum.Material.Neon then
-						if v.Transparency ~= 0 then
-							local p = Instance.new("Decal")
-							p.Color3 = col
-							p.Texture = tx
-							p.Name = na
-							p.Face = Enum.NormalId.Back
-							p.ZIndex = 1
-							p.Parent = v
-							local p = Instance.new("Decal")
-							p.Color3 = col
-							p.Texture = tx
-							p.Name = na
-							p.Face = Enum.NormalId.Top
-							p.ZIndex = 1
-							p.Parent = v
-							local p = Instance.new("Decal")
-							p.Color3 = col
-							p.Texture = tx
-							p.Name = na
-							p.Face = Enum.NormalId.Left
-							p.ZIndex = 1
-							p.Parent = v
-							local p = Instance.new("Decal")
-							p.Color3 = col
-							p.Texture = tx
-							p.Name = na
-							p.Face = Enum.NormalId.Front
-							p.ZIndex = 1
-							p.Parent = v
-							local p = Instance.new("Decal")
-							p.Color3 = col
-							p.Texture = tx
-							p.Name = na
-							p.Face = Enum.NormalId.Right
-							p.ZIndex = 1
-							p.Parent = v
-							local p = Instance.new("Decal")
-							p.Color3 = col
-							p.Texture = tx
-							p.Name = na
-							p.Face = Enum.NormalId.Bottom
-							p.ZIndex = 1
-							p.Parent = v
-						end
-					else
+				pcall(function()
+					if v:IsA("Decal") and (v.Name == "Diamond" or v.Name == "Golden" or v.Name == "Cursed") then
+						v:Destroy()
+					elseif v:IsA("ParticleEmitter") or v:IsA("PointLight") or v:IsA("SurfaceLight") then
+						pcall(function()
+							v.Color = vc
+						end)
+						pcall(function()
+							v.Color = ColorSequence.new(vc)
+						end)
 						pcall(function()
 							v.Color = lc
 						end)
+						pcall(function()
+							v.Color = ColorSequence.new(lc)
+						end)
+					elseif v:IsA("BasePart") and v.Name ~= "HumanoidRootPart" and v.Name ~= "Query" then
+						v.Color = vc
+						if v.Material ~= Enum.Material.Neon then
+							if v.Transparency ~= 0 then
+								local p = Instance.new("Decal")
+								p.Color3 = col
+								p.Texture = tx
+								p.Name = na
+								p.Face = Enum.NormalId.Back
+								p.ZIndex = 1
+								p.Parent = v
+								local p = Instance.new("Decal")
+								p.Color3 = col
+								p.Texture = tx
+								p.Name = na
+								p.Face = Enum.NormalId.Top
+								p.ZIndex = 1
+								p.Parent = v
+								local p = Instance.new("Decal")
+								p.Color3 = col
+								p.Texture = tx
+								p.Name = na
+								p.Face = Enum.NormalId.Left
+								p.ZIndex = 1
+								p.Parent = v
+								local p = Instance.new("Decal")
+								p.Color3 = col
+								p.Texture = tx
+								p.Name = na
+								p.Face = Enum.NormalId.Front
+								p.ZIndex = 1
+								p.Parent = v
+								local p = Instance.new("Decal")
+								p.Color3 = col
+								p.Texture = tx
+								p.Name = na
+								p.Face = Enum.NormalId.Right
+								p.ZIndex = 1
+								p.Parent = v
+								local p = Instance.new("Decal")
+								p.Color3 = col
+								p.Texture = tx
+								p.Name = na
+								p.Face = Enum.NormalId.Bottom
+								p.ZIndex = 1
+								p.Parent = v
+							end
+						else
+							pcall(function()
+								v.Color = lc
+							end)
+						end
 					end
-				end
+				end)
 			end
 		else
 			for i,v in ipairs(tm:GetDescendants()) do
