@@ -36,7 +36,7 @@ function Load()
 end
 
 local Window = Rayfield:CreateWindow({
-	Name = "SDHub V2.42",
+	Name = "SDHub V2.47",
 	Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
 	LoadingTitle = "SDHub",
 	LoadingSubtitle = "by 牢大",
@@ -196,7 +196,7 @@ if game.PlaceId == 14279724900 then --游戏内
 		if bloon == true then
 			for i,v in ipairs(tm:GetDescendants()) do
 				pcall(function()
-					if v:IsA("Decal") and (v.Name == "Diamond" or v.Name == "Gold" or v.Name == "Cursed") then
+					if v:IsA("Decal") and (v.Name == "Diamond" or v.Name == "Gold" or v.Name == "Cursed" or v.Name == "DarkMatter") then
 						v:Destroy()
 					elseif v:IsA("ParticleEmitter") or v:IsA("PointLight") or v:IsA("SurfaceLight") then
 						pcall(function()
@@ -214,7 +214,7 @@ if game.PlaceId == 14279724900 then --游戏内
 					elseif v:IsA("BasePart") and v.Name ~= "HumanoidRootPart" and v.Name ~= "Query" then
 						v.Color = vc
 						if v.Material ~= Enum.Material.Neon then
-							if v.Transparency == 0 then
+							if v.Transparency ~= 1 then
 								local p = Instance.new("Decal")
 								p.Color3 = col
 								p.Texture = tx
@@ -268,7 +268,7 @@ if game.PlaceId == 14279724900 then --游戏内
 			end
 		else
 			for i,v in ipairs(tm:GetDescendants()) do
-				if v:IsA("Decal") and (v.Name == "Diamond" or v.Name == "Gold" or v.Name == "Cursed") then
+				if v:IsA("Decal") and (v.Name == "Diamond" or v.Name == "Gold" or v.Name == "Cursed" or v.Name == "DarkMatter") then
 					v:Destroy()
 				end
 			end
@@ -276,7 +276,7 @@ if game.PlaceId == 14279724900 then --游戏内
 	end
 	local Dropdown = Tab:CreateDropdown({
 		Name = "伪装品质",
-		Options = {"钻石","诅咒","黄金","普通"},
+		Options = {"钻石","诅咒","黄金","普通","暗物质（仅模型）"},
 		MultipleOptions = false,
 		Flag = "SLSkin", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 		Callback = function(Options)
@@ -293,6 +293,8 @@ if game.PlaceId == 14279724900 then --游戏内
 			elseif pz == "普通" then
 				TowerData:SetAttribute("ShardType",nil)
 				dec(false,nil,TowerModel)
+			elseif pz == "暗物质（仅模型）" then
+				dec(true,Color3.new(0,0,0),TowerModel,"http://www.roblox.com/asset/?id=13408058843","DarkMatter",Color3.new(1,1,1),Color3.new(1, 0, 1))
 			end
 		end,
 	})
