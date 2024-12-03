@@ -214,7 +214,7 @@ if game.PlaceId == 14279724900 then --游戏内
 					elseif v:IsA("BasePart") and v.Name ~= "HumanoidRootPart" and v.Name ~= "Query" then
 						v.Color = vc
 						if v.Material ~= Enum.Material.Neon then
-							if v.Transparency ~= 1 then
+							if v.Transparency == 0 then
 								local p = Instance.new("Decal")
 								p.Color3 = col
 								p.Texture = tx
