@@ -69,11 +69,43 @@ local TypeAb = {
 		["PartColor"] = Color3.new(1,1,1),
 		["TextureColor"] = Color3.new(1,1,1),
 	},
-	["找不到材质（建模）"] = {
+	["找不到材质（模型）"] = {
 		["Name"] = "MissingTexture",
 		["Texture"] = "http://www.roblox.com/asset/?id=6729906984",
 		["PartColor"] = Color3.new(1,0,1),
 		["TextureColor"] = Color3.new(1,1,1),
+	},
+	["木板（模型）"] = {
+		["Name"] = "Plank",
+		["Texture"] = "http://www.roblox.com/asset/?id=12470614250",
+		["PartColor"] = Color3.new(0.831373, 0.423529, 0.14902),
+		["TextureColor"] = Color3.new(1,1,1),
+	},
+	["基岩（模型）"] = {
+		["Name"] = "Bedrock",
+		["Texture"] = "http://www.roblox.com/asset/?id=12252439624",
+		["PartColor"] = Color3.new(0.517647, 0.517647, 0.517647),
+		["TextureColor"] = Color3.new(1,1,1),
+		["RandowLight"] = true
+	},
+	["下届合金块（模型）"] = {
+		["Name"] = "NetheriteBlock",
+		["Texture"] = "http://www.roblox.com/asset/?id=7696392982",
+		["PartColor"] = Color3.new(0.337255, 0.337255, 0.337255),
+		["TextureColor"] = Color3.new(1,1,1),
+		["RandowLight"] = true
+	},
+	["大杂烩（模型）"] = {
+		["Name"] = "Random",
+		["Texture"] = "http://www.roblox.com/asset/?id=7696392982",
+		["Texture1"] = "http://www.roblox.com/asset/?id=12252439624",
+		["Texture2"] = "http://www.roblox.com/asset/?id=12470614250",
+		["Texture3"] = "http://www.roblox.com/asset/?id=11425725278",
+		["Texture4"] = "http://www.roblox.com/asset/?id=14934313194",
+		["Texture5"] = "http://www.roblox.com/asset/?id=59406069",
+		["PartColor"] = Color3.new(0.576471, 0.576471, 0.576471),
+		["TextureColor"] = Color3.new(1,1,1),
+		["RandowLight"] = true
 	}
 }
 local Types = {}
@@ -344,7 +376,7 @@ if game.PlaceId == 14279724900 then --游戏内
 			until TowerModel:GetAttribute("ShardType") ~= ShardType
 		end)
 	end
-	local function dec(TowerModel,Name,Texture,PartColor,TextureColor,LightColor,RandowType,TweenToPartColor,TweenToLightColor)
+	local function dec(TowerModel,Name,Texture,PartColor,TextureColor,LightColor,RandowType,TweenToPartColor,TweenToLightColor,RandowLight,t1,t2,t3,t4,t5)
 		TowerModel:SetAttribute("ShardType", Name)
 		for i, v in ipairs(TowerModel:GetDescendants()) do
 			if v:IsA("Decal") then
@@ -367,12 +399,21 @@ if game.PlaceId == 14279724900 then --游戏内
 						if v:IsA("BasePart") then
 							v.Color = PartColor
 							if Texture and v.Transparency ~= 1 and v.Material ~= Enum.Material.Neon then
-								AddDec(TextureColor,Texture,Name,Enum.NormalId.Front,v)
-								AddDec(TextureColor,Texture,Name,Enum.NormalId.Back,v)
-								AddDec(TextureColor,Texture,Name,Enum.NormalId.Top,v)
-								AddDec(TextureColor,Texture,Name,Enum.NormalId.Bottom,v)
-								AddDec(TextureColor,Texture,Name,Enum.NormalId.Left,v)
-								AddDec(TextureColor,Texture,Name,Enum.NormalId.Right,v)
+								if t1 then
+									AddDec(TextureColor,Texture,Name,Enum.NormalId.Front,v)
+									AddDec(TextureColor,t1,Name,Enum.NormalId.Back,v)
+									AddDec(TextureColor,t2,Name,Enum.NormalId.Top,v)
+									AddDec(TextureColor,t3,Name,Enum.NormalId.Bottom,v)
+									AddDec(TextureColor,t4,Name,Enum.NormalId.Left,v)
+									AddDec(TextureColor,t5,Name,Enum.NormalId.Right,v)
+								else
+									AddDec(TextureColor,Texture,Name,Enum.NormalId.Front,v)
+									AddDec(TextureColor,Texture,Name,Enum.NormalId.Back,v)
+									AddDec(TextureColor,Texture,Name,Enum.NormalId.Top,v)
+									AddDec(TextureColor,Texture,Name,Enum.NormalId.Bottom,v)
+									AddDec(TextureColor,Texture,Name,Enum.NormalId.Left,v)
+									AddDec(TextureColor,Texture,Name,Enum.NormalId.Right,v)
+								end
 							elseif not Texture and v.Transparency ~= 1 and v.Material ~= Enum.Material.Neon then
 								v.Color = PartColor
 								if TweenToPartColor then
@@ -381,6 +422,8 @@ if game.PlaceId == 14279724900 then --游戏内
 							elseif v.Material == Enum.Material.Neon then
 								if LightColor then
 									v.Color = LightColor
+								elseif RandowLight then
+									Randow(v,TowerModel,Name)
 								else
 									v.Color = PartColor
 								end
@@ -391,6 +434,8 @@ if game.PlaceId == 14279724900 then --游戏内
 						elseif v:IsA("ParticleEmitter") then
 							if LightColor then
 								v.Color = ColorSequence.new(LightColor)
+							elseif RandowLight then
+								Randow(v,TowerModel,Name)
 							else
 								v.Color = ColorSequence.new(PartColor)
 							end
@@ -400,6 +445,8 @@ if game.PlaceId == 14279724900 then --游戏内
 						elseif v:IsA("Light") then
 							if LightColor then
 								v.Color = LightColor
+							elseif RandowLight then
+								Randow(v,TowerModel,Name)
 							else
 								v.Color = PartColor
 							end
@@ -431,7 +478,7 @@ if game.PlaceId == 14279724900 then --游戏内
 				TowerData:SetAttribute("ShardType",nil)
 			end
 			local Tabl = TypeAb[pz]
-			dec(TowerModel,Tabl.Name,Tabl.Texture,Tabl.PartColor,Tabl.TextureColor,Tabl.LightColor,Tabl.RandowType,Tabl.TweenToPartColor,Tabl.TweenToLightColor)
+			dec(TowerModel,Tabl.Name,Tabl.Texture,Tabl.PartColor,Tabl.TextureColor,Tabl.LightColor,Tabl.RandowType,Tabl.TweenToPartColor,Tabl.TweenToLightColor,Tabl.RandowLight,Tabl.Texture1,Tabl.Texture2,Tabl.Texture3,Tabl.Texture4,Tabl.Texture5)
 		end,
 	})
 
@@ -521,6 +568,34 @@ if game.PlaceId == 14279724900 then --游戏内
 		Flag = "Input2",
 		Callback = function(Text)
 			TowerData:SetAttribute("TargetMode",Text)
+		end,
+	})
+	local Button = Tab:CreateButton({
+		Name = "上古时期老塔",
+		Callback = function()
+			for i,v in ipairs(game:GetService("ReplicatedStorage").TowerData.old:GetChildren()) do
+				local cu = #game:GetService("Players").LocalPlayer.PlayerGui.Towers.Towers:GetChildren() - 2
+				local mode = v:Clone()
+				local ui = game:GetService("Players").LocalPlayer.PlayerGui.Towers.UIListLayout.TowerFrame
+				local frame = ui:Clone()
+				frame.Parent = game:GetService("Players").LocalPlayer.PlayerGui.Towers.Towers
+				frame.LayoutOrder = cu +1
+				frame.Price.Text = "$"..tostring(1)
+				frame.Keybind.Text = cu +1
+				local wordmodel = frame.ViewportFrame.WorldModel
+				local Camera = Instance.new("Camera")
+				Camera.Parent = wordmodel
+				Camera.CFrame = mode.Viewport.ViewportPart.CFrame
+				frame.ViewportFrame.CurrentCamera = Camera
+				local Model = mode.Viewport
+				Model.Parent = wordmodel
+				frame.MouseButton1Down:Connect(function()
+					local nm = Model.Character:Clone()
+					nm.Parent = workspace
+					nm:PivotTo(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
+					nm.Humanoid.Animator:LoadAnimation(v.Idle):Play()
+				end)
+			end
 		end,
 	})
 elseif game.PlaceId == 14279693118 then --大厅
