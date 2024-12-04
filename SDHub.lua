@@ -1,4 +1,85 @@
-
+local TypeAb = {
+	["钻石"] = {
+		["Name"] = "Diamond",
+		["Texture"] = "http://www.roblox.com/asset/?id=18442360949",
+		["PartColor"] = Color3.new(0,0.48,1),
+		["TextureColor"] = Color3.new(1,1,1),
+	},
+	["诅咒"] = {
+		["Name"] = "Cursed",
+		["Texture"] = "http://www.roblox.com/asset/?id=1619172543",
+		["PartColor"] = Color3.new(0,0,0),
+		["TextureColor"] = Color3.new(0,0,0),
+		["LightColor"] = Color3.new(1,0,0),
+	},
+	["黄金"] = {
+		["Name"] = "Gold",
+		["Texture"] = "http://www.roblox.com/asset/?id=4685786041",
+		["PartColor"] = Color3.new(1,0.666,0),
+		["TextureColor"] = Color3.new(1,1,1),
+	},
+	["普通"] = {},
+	["暗物质（模型）"] = {
+		["Name"] = "DarkMatter",
+		["Texture"] = "http://www.roblox.com/asset/?id=13408058843",
+		["PartColor"] = Color3.new(0,0,0),
+		["TextureColor"] = Color3.new(0,0,0),
+		["LightColor"] = Color3.new(1,0,1),
+		["TweenToLightColor"] = Color3.new(0.5,0,1),
+	},
+	["彩色渐变（模型）"] = {
+		["Name"] = "Randow",
+		["RandowType"] = {"BasePart","Light","ParticleEmitter"},
+	},
+	["熔岩（模型）"] = {
+		["Name"] = "Lava",
+		["Texture"] = "http://www.roblox.com/asset/?id=8284531810",
+		["PartColor"] = Color3.new(1,0.5,0),
+		["TextureColor"] = Color3.new(1,1,1),
+		["LightColor"] = Color3.new(1,1,0),
+		["TweenToLightColor"] = Color3.new(1,0.5,0),
+	},
+	["钻石块（模型）"] = {
+		["Name"] = "DiamondBlock",
+		["Texture"] = "http://www.roblox.com/asset/?id=59406069",
+		["PartColor"] = Color3.new(0,1,1),
+		["TextureColor"] = Color3.new(1,1,1),
+	},
+	["绿宝石（模型）"] = {
+		["Name"] = "Emerald",
+		["Texture"] = "http://www.roblox.com/asset/?id=15646042014",
+		["PartColor"] = Color3.new(0,1,0.5),
+		["TextureColor"] = Color3.new(1,1,1),
+	},
+	["金块（模型）"] = {
+		["Name"] = "GoldBlock",
+		["Texture"] = "http://www.roblox.com/asset/?id=14934313194",
+		["PartColor"] = Color3.new(1,1,0),
+		["TextureColor"] = Color3.new(1,1,1),
+	},
+	["绿宝石块（模型）"] = {
+		["Name"] = "EmeraldBlock",
+		["Texture"] = "http://www.roblox.com/asset/?id=11425725278",
+		["PartColor"] = Color3.new(0,1,0.5),
+		["TextureColor"] = Color3.new(1,1,1),
+	},
+	["最强皮肤（buff生效）"] = {
+		["Name"] = "Rick",
+		["Texture"] = "http://www.roblox.com/asset/?id=6403436054",
+		["PartColor"] = Color3.new(1,1,1),
+		["TextureColor"] = Color3.new(1,1,1),
+	},
+	["找不到材质（建模）"] = {
+		["Name"] = "MissingTexture",
+		["Texture"] = "http://www.roblox.com/asset/?id=6729906984",
+		["PartColor"] = Color3.new(1,0,1),
+		["TextureColor"] = Color3.new(1,1,1),
+	}
+}
+local Types = {}
+for i,v in pairs(TypeAb) do
+	Types[#Types+1] = i
+end
 local l = false
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local httpService = game:GetService("HttpService")
@@ -266,8 +347,12 @@ if game.PlaceId == 14279724900 then --游戏内
 	local function dec(TowerModel,Name,Texture,PartColor,TextureColor,LightColor,RandowType,TweenToPartColor,TweenToLightColor)
 		TowerModel:SetAttribute("ShardType", Name)
 		for i, v in ipairs(TowerModel:GetDescendants()) do
-			if v:IsA("Decal") and (v.Name == "Diamond" or v.Name == "Gold" or v.Name == "Cursed" or v.Name == "Lava" or v.Name == "DarkMatter") then
-				v:Destroy()
+			if v:IsA("Decal") then
+				for i,a in pairs(TypeAb) do
+					if v.Name == a.Name then
+						v:Destroy()
+					end
+				end
 			else
 				if Name then
 					local israndow = false
@@ -331,30 +416,22 @@ if game.PlaceId == 14279724900 then --游戏内
 	end
 	local Dropdown = Tab:CreateDropdown({
 		Name = "伪装品质",
-		Options = {"钻石","诅咒","黄金","普通","暗物质（仅模型）","彩色渐变（仅模型）","熔岩（仅模型）"},
+		Options = Types,
 		MultipleOptions = false,
 		Flag = "SLSkin", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 		Callback = function(Options)
 			local pz = unpack(Options)
 			if pz == "钻石" then
 				TowerData:SetAttribute("ShardType","Diamond")
-				dec(TowerModel,"Diamond","http://www.roblox.com/asset/?id=18442360949",Color3.new(0,0.48,1),Color3.new(1,1,1))
 			elseif pz == "诅咒" then
 				TowerData:SetAttribute("ShardType","Cursed")
-				dec(TowerModel,"Cursed","http://www.roblox.com/asset/?id=1619172543",Color3.new(0,0,0),Color3.new(0,0,0),Color3.new(1,0,0))
 			elseif pz == "黄金" then
 				TowerData:SetAttribute("ShardType","Golden")
-				dec(TowerModel,"Gold","http://www.roblox.com/asset/?id=4685786041",Color3.new(1,0.666,0),Color3.new(1,1,1))
 			elseif pz == "普通" then
 				TowerData:SetAttribute("ShardType",nil)
-				dec(TowerModel)
-			elseif pz == "暗物质（仅模型）" then
-				dec(TowerModel,"DarkMatter","http://www.roblox.com/asset/?id=13408058843",Color3.new(0,0,0),Color3.new(1,1,1),Color3.new(1, 0, 1),nil,nil,Color3.new(0.5,0,1))
-			elseif pz == "彩色渐变（仅模型）" then
-				dec(TowerModel,"Randow",nil,nil,nil,nil,{"BasePart","Light","ParticleEmitter"})
-			elseif pz == "熔岩（仅模型）" then
-				dec(TowerModel,"Lava","http://www.roblox.com/asset/?id=8284531810",Color3.new(1,0.5,0),Color3.new(1,1,1),Color3.new(1, 1, 0),nil,nil,Color3.new(1, 0.5, 0))
 			end
+			local Tabl = TypeAb[pz]
+			dec(TowerModel,Tabl.Name,Tabl.Texture,Tabl.PartColor,Tabl.TextureColor,Tabl.LightColor,Tabl.RandowType,Tabl.TweenToPartColor,Tabl.TweenToLightColor)
 		end,
 	})
 
