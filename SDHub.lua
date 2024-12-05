@@ -247,7 +247,7 @@ function Load()
 end
 
 local Window = Rayfield:CreateWindow({
-	Name = "SDHub V2.21",
+	Name = "SDHub V2.37",
 	Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
 	LoadingTitle = "SDHub",
 	LoadingSubtitle = "by 牢大",
