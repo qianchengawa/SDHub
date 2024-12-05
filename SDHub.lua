@@ -719,6 +719,160 @@ if game.PlaceId == 14279724900 then --游戏内
 		end,
 	})
 elseif game.PlaceId == 14279693118 then --大厅
+	local Tab = Window:CreateTab("主要功能", "audio-lines")
+	local Section = Tab:CreateSection("查询通行证奖励")
+	local Username = ""
+	local runmode = 1
+	local tx = {}
+	local Input = Tab:CreateInput({
+		Name = "用户名",
+		CurrentValue = "",
+		PlaceholderText = "输入文字",
+		RemoveTextAfterFocusLost = false,
+		Flag = "Input1",
+		Callback = function(Text)
+			Username = Text
+		end,
+	})
+	local Dropdown = Tab:CreateDropdown({
+		Name = "关键词",
+		Options = {"CursedKey","Credits","Clocks","Diamond","Golden","/Cursed","LuckyShard","Boost2X","Boost3X","Coupon","Premium"},
+		MultipleOptions = true,
+		Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+		Callback = function(Options)
+			tx = Options
+		end,
+	})
+	local Dropdown = Tab:CreateDropdown({
+		Name = "Dropdown Example",
+		Options = {"具体","数量统计"},
+		MultipleOptions = false,
+		Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+		Callback = function(Options)
+			local pz = unpack(Options)
+			if pz == "具体" then
+				runmode = 1
+			elseif pz == "数量统计" then
+				runmode = 2
+			end
+		end,
+	})
+	local Button = Tab:CreateButton({
+		Name = "保存查询结果",
+		Callback = function()
+			local PlayerService = game:GetService("Players")
+			local function fy(tx)
+				local txt = tx
+				txt = string.gsub(txt,"CursedKeys","诅咒钥匙")
+				txt = string.gsub(txt,"Crystal","水晶")
+				txt = string.gsub(txt,"Boost2X","2倍积分")
+				txt = string.gsub(txt,"Unit","角色")
+				txt = string.gsub(txt,"Credits","积分")
+				txt = string.gsub(txt,"LuckyShard","幸运碎片")
+				txt = string.gsub(txt,"Coupon/Premium","高级升级优惠券")
+				txt = string.gsub(txt,"Coupon/Normal","升级优惠券")
+				txt = string.gsub(txt,"Shard","碎片")
+				txt = string.gsub(txt,"Diamond","钻石")
+				txt = string.gsub(txt,"Golden","黄金")
+				txt = string.gsub(txt,"Cursed","诅咒")
+				txt = string.gsub(txt,"Premium","高级货币")
+				txt = string.gsub(txt,"Boost3X","3倍积分")
+				txt = string.gsub(txt,"Mahoraga","魔虚罗/伏黑惠")
+				txt = string.gsub(txt,"SukunaTV","宿傩")
+				txt = string.gsub(txt,"Mahito","真人")
+				txt = string.gsub(txt,"volcanospeaker","漏壶")
+				txt = string.gsub(txt,"MiniTSM","终极音响")
+				txt = string.gsub(txt,"UltimateCamera","终极监控")
+				txt = string.gsub(txt,"UpgradedTitanTVMan","UTTV")
+				txt = string.gsub(txt,"UltimateTV","终极电视")
+				txt = string.gsub(txt,"TitanSpeakerToilet","马桶音响")
+				txt = string.gsub(txt,"AstroUTCM","天文UTC")
+				txt = string.gsub(txt,"OverchargedUTS","充能UTS")
+				txt = string.gsub(txt,"TitanClockman","泰坦时钟")
+				txt = string.gsub(txt,"FutureLargeClock","未来")
+				txt = string.gsub(txt,"UpgradedTitanCameraman","UTC")
+				txt = string.gsub(txt,"UpgradedTitanSpeakerman","UTS")
+				txt = string.gsub(txt,"yugi","虎杖")
+				txt = string.gsub(txt,"ReaperCamera","镰刀")
+				txt = string.gsub(txt,"AUTTVM","工作室UTTV")
+				txt = string.gsub(txt,"Clocks","时钟币")
+				return txt
+			end
+			local free = "\n 免费通行证 \n\n"
+			local prem = "\n 高级通行证 \n\n"
+			local tab = {free = {},perm = {}}
+			local tbl_7_upvr = {}
+			local httpService = game:GetService("HttpService")
+			local Rewards = require(game.ReplicatedStorage.BattlepassUpdate.Rewards)
+			local InfiniteReward_upvr = require(game.ReplicatedStorage.BattlepassUpdate.XPGivings).InfiniteReward
+			local var82_upvw = 1
+			local len_upvr_2 = #tbl_7_upvr
+			local random_state_upvr = Random.new(PlayerService:GetUserIdFromNameAsync(Username))
+			print(PlayerService:GetUserIdFromNameAsync(Username))
+			local len_upvr = #InfiniteReward_upvr
+			local var86_upvw = tbl_7_upvr[#tbl_7_upvr]
+			local function ResyncEndless()
+				if 1000 < var82_upvw then
+				else
+					for i_8 = var82_upvw, 1000 do
+						local var91 = len_upvr_2 + i_8
+						local var92
+						var92 = 1
+						while not nil do
+							local var93 = InfiniteReward_upvr[random_state_upvr:NextInteger(1, len_upvr)]
+							if var93[3] <= i_8 and i_8 <= (var93[4] or math.huge) and not var93[5] and random_state_upvr:NextInteger(1, var93[6] or 1) == 1 then
+								if tx then
+									for i,v in pairs(tx) do
+										if string.find(var93[1],v) then
+											free = free.."等级 "..tostring(i_8).."   奖励 "..fy(var93[1]).."\n"
+											tab.free[var93] = 1 + (tab.free[var93] or 0)
+											break
+										end
+									end
+								else
+									free = free.."等级 "..tostring(i_8).."   奖励 "..fy(var93[1]).."\n"
+									tab.free[var93] = 1 + (tab.free[var93] or 0)
+								end
+								break
+							end
+						end
+						while not nil do
+							local var94 = InfiniteReward_upvr[random_state_upvr:NextInteger(1, len_upvr)]
+							if var94[3] <= i_8 and i_8 <= (var94[4] or math.huge) and random_state_upvr:NextInteger(1, var94[6] or 1) == 1 and var92 <= var94[2] then
+								if tx then
+									for i,v in pairs(tx) do
+										if string.find(var94[1],v) then
+											prem = prem.."等级 "..tostring(i_8).."   奖励 "..fy(var94[1]).."\n"
+											tab.perm[var94] = 1 + (tab.perm[var94] or 0)
+											break
+										end
+									end
+								else
+									prem = prem.."等级 "..tostring(i_8).."   奖励 "..fy(var94[1]).."\n"
+									tab.perm[var94] = 1 + (tab.perm[var94] or 0)
+								end
+								break
+							end
+						end
+					end
+				end
+			end
+			ResyncEndless()
+			if runmode == 1 then
+				writefile("SDHub/"..Username..".txt", free..prem)
+			elseif runmode == 2 then
+				local free = "\n 免费通行证 \n\n"
+				local prem = "\n 高级通行证 \n\n"
+				for i,v in pairs(tab.free) do
+					free = free..'"'..fy(i[1])..'"'.." = "..v.."\n"
+				end
+				for i,v in pairs(tab.perm) do
+					prem = prem..'"'..fy(i[1])..'"'.." = "..v.."\n"
+				end
+				writefile("SDHub/"..Username..".txt", free..prem)
+			end
+		end,
+	})
 	local stype
 	local Tab = Window:CreateTab("娱乐功能", "audio-lines")
 	local Section = Tab:CreateSection("更改抽奖池子（自己可见）")
