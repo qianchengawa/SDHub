@@ -131,7 +131,7 @@ local TypeAb = {
 		["DMG"] = -1145,
 		["SPA"] = -1145,
 		["RNG"] = -1145,
-		["COST"] = 1145,
+		["COST"] = -1145,
 		["CASH"] = -1145,
 		["HD"] = 1,
 	},
@@ -155,7 +155,7 @@ local TypeAb = {
 		["DMG"] = 20,
 		["SPA"] = 20,
 		["RNG"] = 0,
-		["COST"] = 10,
+		["COST"] = -10,
 		["CASH"] = 0,
 		["HD"] = 1,
 	},
@@ -168,7 +168,7 @@ local TypeAb = {
 		["DMG"] = 1145,
 		["SPA"] = 1145,
 		["RNG"] = 50,
-		["COST"] = 100,
+		["COST"] = -100,
 		["CASH"] = 500,
 		["HD"] = 1,
 	},
@@ -178,31 +178,57 @@ local TypeAb = {
 		["PartColor"] = Color3.new(0.337255, 0.337255, 0.337255),
 		["TextureColor"] = Color3.new(1,1,1),
 		["RandowLight"] = true,
-		["DMG"] = 114,
-		["SPA"] = 514,
+		["DMG"] = 225,
+		["SPA"] = 225,
 		["RNG"] = 50,
-		["COST"] = 75,
+		["COST"] = -75,
 		["CASH"] = 200,
 		["HD"] = 1,
 	},
-	["大杂烩"] = {
-		["Name"] = "Random",
-		["Texture"] = "http://www.roblox.com/asset/?id=7696392982",
-		["Texture1"] = "http://www.roblox.com/asset/?id=12252439624",
-		["Texture2"] = "http://www.roblox.com/asset/?id=12470614250",
-		["Texture3"] = "http://www.roblox.com/asset/?id=11425725278",
-		["Texture4"] = "http://www.roblox.com/asset/?id=14934313194",
-		["Texture5"] = "http://www.roblox.com/asset/?id=59406069",
-		["PartColor"] = Color3.new(0.576471, 0.576471, 0.576471),
+	["草方块"] = {
+		["Name"] = "Grass",
+		["Texture"] = "http://www.roblox.com/asset/?id=3027402330",
+		["Texture1"] = "http://www.roblox.com/asset/?id=3027402330",
+		["Texture2"] = "http://www.roblox.com/asset/?id=3027402982",
+		["Texture3"] = "http://www.roblox.com/asset/?id=3027464199",
+		["Texture4"] = "http://www.roblox.com/asset/?id=3027402330",
+		["Texture5"] = "http://www.roblox.com/asset/?id=3027402330",
+		["PartColor"] = Color3.new(0.576471, 0.447059, 0.301961),
 		["TextureColor"] = Color3.new(1,1,1),
 		["RandowLight"] = true,
-		["DMG"] = 1000,
-		["SPA"] = 1000,
-		["RNG"] = 100,
-		["COST"] = 200,
-		["CASH"] = 1000,
+		["DMG"] = 1,
+		["SPA"] = 1,
+		["RNG"] = 1,
+		["COST"] = -10,
+		["CASH"] = 1,
 		["HD"] = 1,
-	}
+	},
+	["黑曜石"] = {
+		["Name"] = "Obsidian",
+		["Texture"] = "http://www.roblox.com/asset/?id=146215703",
+		["PartColor"] = Color3.new(0, 0, 0),
+		["TextureColor"] = Color3.new(1,1,1),
+		["DMG"] = 175,
+		["SPA"] = 175,
+		["RNG"] = 5,
+		["COST"] = -100,
+		["CASH"] = 0,
+		["HD"] = 1,
+	},
+	["哭泣的黑曜石"] = {
+		["Name"] = "CryingObsidian",
+		["Texture"] = "http://www.roblox.com/asset/?id=10746129131",
+		["PartColor"] = Color3.new(0, 0, 0),
+		["TextureColor"] = Color3.new(1,1,1),
+		["LightColor"] = Color3.new(1,0,1),
+		["TweenToLightColor"] = Color3.new(0.5,0,1),
+		["DMG"] = 175,
+		["SPA"] = 175,
+		["RNG"] = 5,
+		["COST"] = -100,
+		["CASH"] = 0,
+		["HD"] = 1,
+	},
 }
 local Types = {}
 for i,v in pairs(TypeAb) do
@@ -413,54 +439,75 @@ if game.PlaceId == 14279724900 then --游戏内
 		p.Parent = Parent
 		return p
 	end
-	local function RandowP(v)
-		if v:IsA("BasePart") or v:IsA("Light") or v:IsA("Decal") then
-			TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(1, 0, 0)}):Play()
-			wait(2)
-			TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(1, 0.5, 0)}):Play()
-			wait(2)
-			TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(1, 1, 0)}):Play()
-			wait(2)
-			TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(0, 1, 0)}):Play()
-			wait(2)
-			TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(0, 1, 1)}):Play()
-			wait(2)
-			TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(0, 0, 1)}):Play()
-			wait(2)
-			TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(0.5, 0, 1)}):Play()
-			wait(2)
-		elseif v:IsA("ParticleEmitter") then
-			v.Color = ColorSequence.new(Color3.new(1,0,0))
-			wait(2)
-			v.Color = ColorSequence.new(Color3.new(1,0.5,0))
-			wait(2)
-			v.Color = ColorSequence.new(Color3.new(1,1,0))
-			wait(2)
-			v.Color = ColorSequence.new(Color3.new(0,1,0))
-			wait(2)
-			v.Color = ColorSequence.new(Color3.new(0,1,1))
-			wait(2)
-			v.Color = ColorSequence.new(Color3.new(0,0,1))
-			wait(2)
-			v.Color = ColorSequence.new(Color3.new(0.5,0,1))
-			wait(2)
+	local function RandowP(v,TowerModel,ShardType)
+		task.spawn(function()
+			repeat game:GetService("RunService").RenderStepped:Wait() until TowerModel:GetAttribute("ShardType") ~= ShardType
+			return
+		end)
+		local part = Instance.new("Part")
+		part:GetPropertyChangedSignal("Color"):Connect(function() 
+			if v:IsA("ParticleEmitter") then
+				v.Color = ColorSequence.new(part.Color) 
+			end
+		end)
+		while TowerModel:GetAttribute("ShardType") == ShardType do
+			if v:IsA("BasePart") or v:IsA("Light") or v:IsA("Decal") then
+				TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(1, 0, 0)}):Play()
+				wait(2)
+				TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(1, 0.5, 0)}):Play()
+				wait(2)
+				TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(1, 1, 0)}):Play()
+				wait(2)
+				TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(0, 1, 0)}):Play()
+				wait(2)
+				TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(0, 1, 1)}):Play()
+				wait(2)
+				TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(0, 0, 1)}):Play()
+				wait(2)
+				TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(0.5, 0, 1)}):Play()
+				wait(2)
+			elseif v:IsA("ParticleEmitter") then
+				TweenService:Create(part,TweenInfo.new(2),{Color = Color3.new(1, 0, 0)}):Play()
+				wait(2)
+				TweenService:Create(part,TweenInfo.new(2),{Color = Color3.new(1, 0.5, 0)}):Play()
+				wait(2)
+				TweenService:Create(part,TweenInfo.new(2),{Color = Color3.new(1, 1, 0)}):Play()
+				wait(2)
+				TweenService:Create(part,TweenInfo.new(2),{Color = Color3.new(0, 1, 0)}):Play()
+				wait(2)
+				TweenService:Create(part,TweenInfo.new(2),{Color = Color3.new(0, 1, 1)}):Play()
+				wait(2)
+				TweenService:Create(part,TweenInfo.new(2),{Color = Color3.new(0, 0, 1)}):Play()
+				wait(2)
+				TweenService:Create(part,TweenInfo.new(2),{Color = Color3.new(0.5, 0, 1)}):Play()
+				wait(2)
+			end
+			wait()
 		end
 	end
 	local function Randow(v,TowerModel,ShardType)
 		task.spawn(function()
-			repeat
-				RandowP(v)
-			until TowerModel:GetAttribute("ShardType") ~= ShardType
+			RandowP(v,TowerModel,ShardType)
 		end)
 	end
 	local function TweenColor(v,TowerModel,ShardType,ToColor1,ToColor2)
 		task.spawn(function()
-			repeat
+			task.spawn(function()
+				repeat game:GetService("RunService").RenderStepped:Wait() until TowerModel:GetAttribute("ShardType") ~= ShardType
+				return
+			end)
+			local part = Instance.new("Part")
+			part:GetPropertyChangedSignal("Color"):Connect(function() 
+				if v:IsA("ParticleEmitter") then
+					v.Color = ColorSequence.new(part.Color) 
+				end
+			end)
+			while TowerModel:GetAttribute("ShardType") == ShardType do
 				if v:IsA("ParticleEmitter") then
 					pcall(function()
-						v.Color = ToColor1
+						TweenService:Create(part,TweenInfo.new(2),{Color = ToColor1}):Play()
 						wait(2)
-						v.Color = ToColor2
+						TweenService:Create(part,TweenInfo.new(2),{Color = ToColor2}):Play()
 						wait(2)
 					end)
 				else
@@ -469,7 +516,8 @@ if game.PlaceId == 14279724900 then --游戏内
 					TweenService:Create(v,TweenInfo.new(2),{Color = ToColor2}):Play()
 					wait(2)
 				end
-			until TowerModel:GetAttribute("ShardType") ~= ShardType
+				wait()
+			end
 		end)
 	end
 	local function dec(TowerModel,Name,Texture,PartColor,TextureColor,LightColor,RandowType,TweenToPartColor,TweenToLightColor,RandowLight,t1,t2,t3,t4,t5)
