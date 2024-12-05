@@ -440,17 +440,23 @@ if game.PlaceId == 14279724900 then --游戏内
 		return p
 	end
 	local function RandowP(v,TowerModel,ShardType)
-		task.spawn(function()
-			repeat game:GetService("RunService").RenderStepped:Wait() until TowerModel:GetAttribute("ShardType") ~= ShardType
-			return
+		local runa = true
+		TowerModel.AttributeChanged:Connect(function()
+			if TowerModel:GetAttribute("ShardType") ~= ShardType then
+				runa = false
+				return
+			end
 		end)
+		if runa == false then
+			return
+		end
 		local part = Instance.new("Part")
 		part:GetPropertyChangedSignal("Color"):Connect(function() 
 			if v:IsA("ParticleEmitter") then
 				v.Color = ColorSequence.new(part.Color) 
 			end
 		end)
-		while TowerModel:GetAttribute("ShardType") == ShardType do
+		while runa do
 			if v:IsA("BasePart") or v:IsA("Light") or v:IsA("Decal") then
 				TweenService:Create(v,TweenInfo.new(2),{Color = Color3.new(1, 0, 0)}):Play()
 				wait(2)
@@ -492,17 +498,23 @@ if game.PlaceId == 14279724900 then --游戏内
 	end
 	local function TweenColor(v,TowerModel,ShardType,ToColor1,ToColor2)
 		task.spawn(function()
-			task.spawn(function()
-				repeat game:GetService("RunService").RenderStepped:Wait() until TowerModel:GetAttribute("ShardType") ~= ShardType
-				return
+			local runa = true
+			TowerModel.AttributeChanged:Connect(function()
+				if TowerModel:GetAttribute("ShardType") ~= ShardType then
+					runa = false
+					return
+				end
 			end)
+			if runa == false then
+				return
+			end
 			local part = Instance.new("Part")
 			part:GetPropertyChangedSignal("Color"):Connect(function() 
 				if v:IsA("ParticleEmitter") then
 					v.Color = ColorSequence.new(part.Color) 
 				end
 			end)
-			while TowerModel:GetAttribute("ShardType") == ShardType do
+			while runa do
 				if v:IsA("ParticleEmitter") then
 					pcall(function()
 						TweenService:Create(part,TweenInfo.new(2),{Color = ToColor1}):Play()
