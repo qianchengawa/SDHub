@@ -247,7 +247,7 @@ function Load()
 end
 
 local Window = Rayfield:CreateWindow({
-	Name = "SDHub V2.37",
+	Name = "SDHub V2.38",
 	Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
 	LoadingTitle = "SDHub",
 	LoadingSubtitle = "by 牢大",
@@ -860,6 +860,12 @@ elseif game.PlaceId == 14279693118 then --大厅
 			ResyncEndless()
 			if runmode == 1 then
 				writefile("SDHub/"..Username..".txt", free..prem)
+				Rayfield:Notify({
+					Title = "SDHub",
+					Content = "文件已保存至 注入器文件夹/SDHub"..Username..".txt",
+					Duration = 6.5,
+					Image = 4483362458,
+				})
 			elseif runmode == 2 then
 				local free = "\n 免费通行证 \n\n"
 				local prem = "\n 高级通行证 \n\n"
@@ -870,6 +876,12 @@ elseif game.PlaceId == 14279693118 then --大厅
 					prem = prem..'"'..fy(i[1])..'"'.." = "..v.."\n"
 				end
 				writefile("SDHub/"..Username..".txt", free..prem)
+				Rayfield:Notify({
+					Title = "SDHub",
+					Content = "文件已保存至 注入器文件夹/SDHub"..Username..".txt",
+					Duration = 6.5,
+					Image = 4483362458,
+				})
 			end
 		end,
 	})
