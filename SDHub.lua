@@ -477,6 +477,30 @@ if game.PlaceId == 14279724900 then --游戏内
 			elseif pz == "普通" then
 				TowerData:SetAttribute("ShardType",nil)
 			end
+			if not TowerData.Boosters:FindFirstChild("Special") then
+				local sp = Instance.new("NumberValue",TowerData.Boosters)
+				sp.Name = "Special"
+				local dm = Instance.new("NumberValue",sp)
+				dm.Name = "DMG"
+				local spa = Instance.new("IntValue",sp)
+				spa.Name = "SPA"
+				local rng = Instance.new("IntValue",sp)
+				rng.Name = "RNG"
+				local cos = Instance.new("IntValue",sp)
+				cos.Name = "COST"
+				local cas = Instance.new("IntValue",sp)
+				cas.Name = "CASH"
+				local hd = Instance.new("IntValue",sp)
+				hd.Name = "HD"
+			end
+			wait()
+			for i,v in ipairs(TowerData.Boosters:FindFirstChild("Special"):GetChildren()) do
+				if v:IsA("NumberValue") then
+					v.Value = TypeAb[pz][v.Name]
+				elseif v:IsA("IntValue") then
+					v.Value = tostring(TypeAb[pz][v.Name])
+				end
+			end
 			local Tabl = TypeAb[pz]
 			dec(TowerModel,Tabl.Name,Tabl.Texture,Tabl.PartColor,Tabl.TextureColor,Tabl.LightColor,Tabl.RandowType,Tabl.TweenToPartColor,Tabl.TweenToLightColor,Tabl.RandowLight,Tabl.Texture1,Tabl.Texture2,Tabl.Texture3,Tabl.Texture4,Tabl.Texture5)
 		end,
