@@ -41,7 +41,7 @@ local TypeAb = {
 		["Name"] = "DarkMatter",
 		["Texture"] = "http://www.roblox.com/asset/?id=13408058843",
 		["PartColor"] = Color3.new(0,0,0),
-		["TextureColor"] = Color3.new(0,0,0),
+		["TextureColor"] = Color3.new(1,1,1),
 		["LightColor"] = Color3.new(1,0,1),
 		["TweenToLightColor"] = Color3.new(0.5,0,1),
 		["DMG"] = 125,
