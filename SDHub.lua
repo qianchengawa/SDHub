@@ -437,6 +437,7 @@ if game.PlaceId == 14279724900 then --游戏内
 		p.Face = Face
 		p.ZIndex = 1
 		p.Parent = Parent
+		p.ImageTransparency = Parent.Transparency
 		return p
 	end
 	local function RandowP(v,TowerModel,ShardType)
