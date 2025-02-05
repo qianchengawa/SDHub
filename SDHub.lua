@@ -273,7 +273,7 @@ function Load()
 end
 
 local Window = Rayfield:CreateWindow({
-	Name = "SDHub V2.38",
+	Name = "SDHub V2.51",
 	Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
 	LoadingTitle = "SDHub",
 	LoadingSubtitle = "by 牢大",
@@ -437,7 +437,7 @@ if game.PlaceId == 14279724900 then --游戏内
 		p.Face = Face
 		p.ZIndex = 1
 		p.Parent = Parent
-		p.ImageTransparency = Parent.Transparency
+		p.Transparency = Parent.Transparency
 		return p
 	end
 	local function RandowP(v,TowerModel,ShardType)
@@ -805,7 +805,7 @@ elseif game.PlaceId == 14279693118 then --大厅
 		end,
 	})
 	local Dropdown = Tab:CreateDropdown({
-		Name = "Dropdown Example",
+		Name = "运行模式",
 		Options = {"具体","数量统计"},
 		MultipleOptions = false,
 		Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
